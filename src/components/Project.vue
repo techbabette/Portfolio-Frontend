@@ -10,6 +10,7 @@
             <p>Technologies used:
                 <span v-for="Technology, index in ProjectTechnologies" :key="index">{{ Technology }} </span>
             </p>
+            <p>Made in 2023</p>
             <p>
                 <a class="btn" :class="{'AccentButton' : !IsOdd, 'PrimaryButton': IsOdd}" :href="ProjectRepositoryLink">Github Link</a>
                 <a class="mx-2 btn SecondaryButton" v-if="ProjectDemoLink" :href="ProjectDemoLink">Live demo</a>

@@ -1,6 +1,10 @@
 <template>
-<div id="landingBody">
-    <h1>This is the landing page</h1>
+<div class="ViewHeight" id="landingBody">
+    <div data-aos="zoom-in-down" style="text-align: center;">
+        <h1>Name Lastname</h1>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minus delectus quam deserunt natus suscipit iusto amet voluptate cum, vitae nisi!</p>
+    </div>
+    <router-link to="/projects" class="btn PrimaryButton">View my projects</router-link>
 </div>
 </template>
 <script>
@@ -10,6 +14,9 @@ export default {
 </script>
 <style scoped>
 #landingBody{
-    background-color: #8fb4ff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 </style>
