@@ -26,12 +26,16 @@ export default {
   --Secondary Button: #ebf1ff 
   --Accent: #ff8f94 
 }
+*{
+  box-sizing: border-box;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #ffffff;
-  color: #000000 !important;
+  background-color: #fafafa;
+  color: #292929 !important;
+  overflow-x: hidden;
 }
 .NavHeight{
   min-height: 8vh;
@@ -44,5 +48,29 @@ export default {
 }
 .BlackTextColor{
   color: #000000 !important;
+}
+.PrimaryTextColor{
+  color: #8fb4ff !important;
+}
+.SecondaryTextColor{
+  color: #ff8f94 !important;
+}
+.PrimaryButton{
+  background-color: #8fb4ff;
+}
+.PrimaryButton:hover{
+  background-color: #528af9 !important;
+}
+.SecondaryButton{
+  background-color: #ebf1ff;
+}
+.SecondaryButton:hover{
+  background-color: #bccef8 !important;
+}
+.AccentButton{
+  background-color: #ff8f94;
+}
+.AccentButton:hover{
+  background-color: #ff787f;
 }
 </style>

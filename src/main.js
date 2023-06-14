@@ -4,6 +4,8 @@ import VueRouter from "vue-router"
 import LandingPage from "./components/pages/Landing.vue";
 import ProjectsPage from "./components/pages/Projects.vue";
 import Axios from "axios";
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 const routes = [
   {
@@ -35,5 +37,8 @@ Vue.prototype.$axios = axiosInstance;
 
 new Vue({
   router,
-  render: h => h(App)
+  render: h => h(App),
+  mounted(){
+    AOS.init()
+  }
 }).$mount('#app')

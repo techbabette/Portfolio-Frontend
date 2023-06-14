@@ -1,9 +1,10 @@
 <template>
     <div>
-        <h1>Projects page</h1>
+        <h1>My projects</h1>
         <Project v-for="Project,index in Projects" :key = "index" 
         :ProjectName ="Project.Name" :ProjectDescription="Project.Description" :ProjectTechnologies="Project.Technologies"
-        :ProjectThumbnailImage = "Project['Preview image link']" :NumberByOrder="index"/>
+        :ProjectThumbnailImage = "Project['Preview image link']" :NumberByOrder="index"
+        :ProjectRepositoryLink = "Project['Github link']" :ProjectDemoLink="Project['Hosted link']"/>
     </div>
 </template>
 <script>
