@@ -2,10 +2,15 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from "vue-router"
 import LandingPage from "./components/pages/Landing.vue";
+import ProjectsPage from "./components/pages/Projects.vue";
+import Axios from "axios";
 
 const routes = [
   {
     path : "/", component: LandingPage, name : "Home page"
+  },
+  {
+    path : "/projects", component: ProjectsPage, name : "My projects"
   }
 ]
 
@@ -22,7 +27,13 @@ router.beforeEach((to, from, next) => {
 
 Vue.use(VueRouter);
 
+const axiosInstance = Axios.create({
+  baseURL : "http://localhost:3000"
+})
+
+Vue.prototype.$axios = axiosInstance;
+
 new Vue({
-  render: h => h(App),
-  router
+  router,
+  render: h => h(App)
 }).$mount('#app')
