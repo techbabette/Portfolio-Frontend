@@ -18,19 +18,10 @@
 <script>
 export default {
     name : "NavigationBar",
-    data() {
-        return {
-            NavigationLinks : [
-            {
-                "Title" : "Home",
-                "Route" : "/"
-            },
-            {
-                "Title" : "Projects",
-                "Route" : "/projects"
-            }
-        ]
-        }
+    computed: {
+      NavigationLinks : function(){
+        return this.$store.getters.getNavigationLinksForActiveUser
+      }
     }
 }
 </script>

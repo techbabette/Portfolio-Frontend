@@ -57,9 +57,11 @@ export default {
 }
 .PrimaryButton{
   background-color: #8fb4ff;
+  color: white !important;
 }
 .PrimaryButton:hover{
   background-color: #528af9 !important;
+  color: white !important;
 }
 .SecondaryButton{
   background-color: #ebf1ff;

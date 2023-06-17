@@ -1,7 +1,7 @@
 <template>
 <div class="ViewHeight" id="landingBody">
     <div data-aos="zoom-in-down" style="text-align: center;">
-        <h1>Name Lastname</h1>
+        <h1 id="AuthorName">Name Lastname</h1>
         <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minus delectus quam deserunt natus suscipit iusto amet voluptate cum, vitae nisi!</p>
     </div>
     <router-link to="/projects" class="btn PrimaryButton">View my projects</router-link>
@@ -18,5 +18,9 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+#AuthorName{
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: #8fb4ff !important;
 }
 </style>

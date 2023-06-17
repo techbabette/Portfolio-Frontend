@@ -4,6 +4,7 @@ import VueRouter from "vue-router"
 import LandingPage from "./components/pages/Landing.vue";
 import ProjectsPage from "./components/pages/Projects.vue";
 import Axios from "axios";
+import store from "./store/store"
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 
@@ -37,6 +38,7 @@ Vue.prototype.$axios = axiosInstance;
 
 new Vue({
   router,
+  store,
   render: h => h(App),
   mounted(){
     AOS.init()
