@@ -36,6 +36,11 @@ export default {
                 "Access level required" : 0
             },
             {
+                "Title" : "Admin panel",
+                "Route" : "/admin",
+                "Access level required" : 2
+            },
+            {
                 "Title" : "Login",
                 "Route" : "/login",
                 "Access level required" : -1
@@ -47,20 +52,39 @@ export default {
             }
         ]
     },
-    mutations: {
-        createNewUser(state, newUserObject){
-            state.users.push(newUserObject);
-        },
-        attemptLogin(state, loginInformationSent){
+    actions : {
+        attemptLogin({commit, state}, loginInformationSent){
             let attemptedUsername = loginInformationSent.username;
 
-            let attemptedAccount = state.userAccounts.find(el => el.username = attemptedUsername) ?? null;
+            let attemptedAccount = state.userAccounts.find(userAccount => userAccount.username === attemptedUsername) ?? null;
 
-            if(!attemptedAccount) return;
+            if(!attemptedAccount) return false;
 
-            if(attemptedAccount.password !== loginInformationSent.password) return;
+            if(attemptedAccount.password !== loginInformationSent.password) return false;
 
-            state.activeUser = attemptedAccount;
+            commit("setActiveUser", attemptedAccount);
+
+            return true;
+        },
+        attemptRegistration({commit}, registrationInformationSent){
+            if(!registrationInformationSent) return false;
+
+            let newUserAccount = registrationInformationSent;
+
+            newUserAccount.role = "user";
+
+            newUserAccount.accessLevel = "1";
+
+            newUserAccount.favoriteProjects = new Set();
+
+            commit("createNewUser", newUserAccount);
+
+            return true;
+        }
+    },
+    mutations: {
+        createNewUser(state, newUserObject){
+            state.userAccounts.push(newUserObject);
         },
         setActiveUser(state, newUserObject){
             if(!newUserObject){

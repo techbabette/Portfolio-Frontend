@@ -3,6 +3,8 @@ import App from './App.vue'
 import VueRouter from "vue-router"
 import LandingPage from "./components/pages/Landing.vue";
 import ProjectsPage from "./components/pages/Projects.vue";
+import LoginPage from "./components/pages/Login.vue";
+import RegisterPage from "./components/pages/Register.vue";
 import Axios from "axios";
 import store from "./store/store"
 import AOS from 'aos'
@@ -14,6 +16,12 @@ const routes = [
   },
   {
     path : "/projects", component: ProjectsPage, name : "My projects"
+  },
+  {
+    path : "/login", component: LoginPage, name : "Login"
+  },
+  {
+    path : "/register", component: RegisterPage, name : "Register"
   }
 ]
 
