@@ -35,7 +35,7 @@ const router = new VueRouter({
 router.beforeEach(function (to, from, next) {
   document.title = to.name;
   if((store.getters.getNavigationLinksForActiveUser.some(link => link.Route === to.path))){
-    store.commit("changeCurrentlyActiveLink", to.path);
+    store.commit("changeCurrentlyActiveRoute", to.path);
     next();
   }
 });
