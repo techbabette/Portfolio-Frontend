@@ -24,33 +24,6 @@ export default {
             'favoriteProjects' : new Set()
         }
         ],
-        navigationLinks : [
-            {
-                "Title" : "Home",
-                "Route" : "/",
-                "Access level required" : 0
-            },
-            {
-                "Title" : "Projects",
-                "Route" : "/projects",
-                "Access level required" : 0
-            },
-            {
-                "Title" : "Admin panel",
-                "Route" : "/admin",
-                "Access level required" : 2
-            },
-            {
-                "Title" : "Login",
-                "Route" : "/login",
-                "Access level required" : -1
-            },
-            {
-                "Title" : "Register",
-                "Route" : "/register",
-                "Access level required" : -1
-            }
-        ]
     },
     actions : {
         attemptLogin({commit, state}, loginInformationSent){
@@ -107,14 +80,8 @@ export default {
         users(state) {
             return state.userAccounts
         },
-        getNavigationLinksForActiveUser(state){
-            let activeUser = state.activeUser;
-
-            if(activeUser.accessLevel === 0){
-                return state.navigationLinks.filter(link => link["Access level required"] <= activeUser.accessLevel);
-            }
-
-            return state.navigationLinks.filter(link => link["Access level required"] <= activeUser.accessLevel && link["Access level required"] != -1);
+        acitveUserAccessLevel(state){
+            return state.activeUser.accessLevel;
         }
     }
 }

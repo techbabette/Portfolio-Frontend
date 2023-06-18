@@ -8,7 +8,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li v-for="NavigationLink,index in NavigationLinks" :key="index" class="nav-item">
-           <router-link class="nav-link" :to="NavigationLink.Route" >{{ NavigationLink.Title }}</router-link>
+           <router-link class="nav-link" :to="NavigationLink.Route" :class="{active : CurrentlyActiveLink === NavigationLink.Route}">{{ NavigationLink.Title }}</router-link>
         </li>
       </ul>
     </div>
@@ -21,6 +21,9 @@ export default {
     computed: {
       NavigationLinks : function(){
         return this.$store.getters.getNavigationLinksForActiveUser
+      },
+      CurrentlyActiveLink : function(){
+        return this.$store.getters.getCurrentlyActiveLink;
       }
     }
 }

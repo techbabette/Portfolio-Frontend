@@ -31,8 +31,10 @@ const router = new VueRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
+
+router.beforeEach(function (to, from, next) {
   document.title = to.name;
+  store.commit("changeCurrentlyActiveLink", to.path);
   next();
 });
 
