@@ -3,35 +3,48 @@
         <form class="w-50 my-auto mx-auto">
             <h2>Register new account</h2>
             <div class="mb-3">
-                <label for="usernameInput" class="form-label">Username</label>
-                <input type="text" v-model="registrationRequestInformation.username" class="form-control" id="usernameInput">
+                <TextInput v-model="registrationRequestInformation.username" :errorMessage="usernameError" type="Text" label="Username"/>
             </div>
             <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" v-model="registrationRequestInformation.password" class="form-control" id="exampleInputPassword1">
+                <TextInput v-model="registrationRequestInformation.password" :errorMessage="passwordError" type="password" label="Password"/>
             </div>
-            <button @click="attemptRegistration()" class="btn PrimaryButton">Register</button>
+            <button @click="attemptRegistration" class="btn PrimaryButton">Register</button>
         </form>
     </div>
 </template>
 <script>
+import TextInput from "../inputs/Text.vue"
 export default{
     name : "RegisterPage",
+    components : {
+        TextInput
+    },
     data() {
         return {
             registrationRequestInformation: {
                 username: "pera1",
                 password: "sifra1"
-            }
+            },
+            usernameError : "",
+            passwordError : ""
         }
     },
     methods : {
-        async attemptRegistration (){
-            let successfulRegistration = await this.$store.dispatch("attemptRegistration", this.registrationRequestInformation);
+        async attemptRegistration (e){
+            e.preventDefault();
 
-            if(successfulRegistration){
+            let registrationResult = await this.$store.dispatch("attemptRegistration", this.registrationRequestInformation);
+
+            let registrationSuccess = Object.keys(registrationResult.errors).length < 1; 
+
+            if(registrationSuccess){
                 this.$router.push("/login");
+                return;
             }
+
+            this.usernameError = registrationResult.errors.usernameError ?? ""
+
+            this.passwordError = registrationResult.errors.passwordError ?? ""
         }
     }
 }

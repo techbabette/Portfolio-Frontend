@@ -27,22 +27,39 @@ export default {
     },
     actions : {
         attemptLogin({commit, state}, loginInformationSent){
+            let result = {};
+
+            result.errors = {};
+
             let attemptedUsername = loginInformationSent.username;
 
             let attemptedAccount = state.userAccounts.find(userAccount => userAccount.username === attemptedUsername) ?? null;
 
-            if(!attemptedAccount) return false;
+            if(!attemptedAccount) {
+                result.errors.loginError = "Invalid username/password";
+                return result;
+            }
 
-            if(attemptedAccount.password !== loginInformationSent.password) return false;
+            if(attemptedAccount.password !== loginInformationSent.password) {
+                result.errors.loginError = "Invalid username/password";
+                return result;
+            }
 
             commit("setActiveUser", attemptedAccount);
 
-            return true;
+            return result;
         },
-        attemptRegistration({commit}, registrationInformationSent){
-            if(!registrationInformationSent) return false;
+        attemptRegistration({commit, state}, registrationInformationSent){
+            let result = {};
 
-            let newUserAccount = registrationInformationSent;
+            result.errors = {};
+
+            if(state.userAccounts.some(account => account.username == registrationInformationSent.username)){
+                result.errors.usernameError = "Account with this username already exists"
+                return result;
+            }
+
+            let newUserAccount = JSON.parse(JSON.stringify(registrationInformationSent));
 
             newUserAccount.role = "user";
 
@@ -52,7 +69,7 @@ export default {
 
             commit("createNewUser", newUserAccount);
 
-            return true;
+            return result;
         },
         signUserOut({commit}){
             commit("setActiveUser", null);
