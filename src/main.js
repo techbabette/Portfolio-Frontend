@@ -9,6 +9,9 @@ import Axios from "axios";
 import store from "./store/store"
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import AccessLevelDirective from "./directives/AccessLevelDirective.js"
+
+Vue.directive("accessLevel", AccessLevelDirective);
 
 const routes = [
   {
@@ -40,6 +43,12 @@ router.beforeEach(function (to, from, next) {
   }
 });
 
+// Subscribe to store updates
+store.subscribe((mutation, state) => {
+  if(mutation.type === "changeCurrentlyActiveRoute") return;
+	localStorage.setItem('store', JSON.stringify(state));
+});
+
 Vue.use(VueRouter);
 
 const axiosInstance = Axios.create({
@@ -54,5 +63,6 @@ new Vue({
   render: h => h(App),
   mounted(){
     AOS.init()
+		this.$store.commit('initializeStore');
   }
 }).$mount('#app')

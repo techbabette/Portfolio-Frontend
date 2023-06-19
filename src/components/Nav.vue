@@ -10,6 +10,9 @@
         <li v-for="NavigationLink,index in NavigationLinks" :key="index" class="nav-item">
            <router-link class="nav-link" :to="NavigationLink.Route" :class="{active : CurrentlyActiveLink === NavigationLink.Route}">{{ NavigationLink.Title }}</router-link>
         </li>
+        <li class="nav-item">
+          <a href="#" v-accessLevel="1" @click="SignUserOut" class="nav-link">Log out</a>
+        </li>
       </ul>
     </div>
   </div>
@@ -24,6 +27,17 @@ export default {
       },
       CurrentlyActiveLink : function(){
         return this.$store.getters.getCurrentlyActiveLink;
+      }
+    },
+    methods: {
+      async SignUserOut (){
+        let successfulLogout = await this.$store.dispatch("signUserOut");
+
+        console.log(this.$router);
+
+        if(successfulLogout && this.$router.history.current.path != "/"){
+          this.$router.push("/");
+        }
       }
     }
 }

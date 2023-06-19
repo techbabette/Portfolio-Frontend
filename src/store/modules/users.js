@@ -53,6 +53,11 @@ export default {
             commit("createNewUser", newUserAccount);
 
             return true;
+        },
+        signUserOut({commit}){
+            commit("setActiveUser", null);
+
+            return true;
         }
     },
     mutations: {
@@ -62,6 +67,7 @@ export default {
         setActiveUser(state, newUserObject){
             if(!newUserObject){
                 state.activeUser = { username : "Logged out", role: "loggedOut", accessLevel : 0, favoriteProjects : new Set() }
+                return;
             }
 
             state.activeUser = newUserObject;
