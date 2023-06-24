@@ -63,6 +63,10 @@ export default {
   background-color: #528af9 !important;
   color: white !important;
 }
+.PrimaryButtonActive{
+  background-color: #528af9 !important;
+  color: white !important;
+}
 .SecondaryButton{
   background-color: #ebf1ff;
 }

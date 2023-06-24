@@ -5,6 +5,7 @@ import LandingPage from "./components/pages/Landing.vue";
 import ProjectsPage from "./components/pages/Projects.vue";
 import LoginPage from "./components/pages/Login.vue";
 import RegisterPage from "./components/pages/Register.vue";
+import AdminPage from "./components/pages/Admin.vue";
 import Axios from "axios";
 import store from "./store/store"
 import AOS from 'aos'
@@ -25,6 +26,9 @@ const routes = [
   },
   {
     path : "/register", component: RegisterPage, name : "Register"
+  },
+  {
+    path : "/admin", component: AdminPage, name : "Admin panel"
   }
 ]
 
