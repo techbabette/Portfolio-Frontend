@@ -5,26 +5,31 @@ export default {
             {
                 "Title" : "Home",
                 "Route" : "/",
+                "Position" : "Navbar",
                 "Access level required" : 0
             },
             {
                 "Title" : "Projects",
                 "Route" : "/projects",
+                "Position" : "Navbar",
                 "Access level required" : 0
             },
             {
                 "Title" : "Admin panel",
                 "Route" : "/admin",
+                "Position" : "Navbar",
                 "Access level required" : 2
             },
             {
                 "Title" : "Login",
                 "Route" : "/login",
+                "Position" : "Navbar",
                 "Access level required" : -1
             },
             {
                 "Title" : "Register",
                 "Route" : "/register",
+                "Position" : "Navbar",
                 "Access level required" : -1
             }
         ]
@@ -45,6 +50,9 @@ export default {
 
             //If user is logged in, show all links below or at access level bar the ones only shown to logged out users (Where access level required is -1);
             return state.navigationLinks.filter(link => link["Access level required"] <= activeUserLevel && link["Access level required"] != -1);
+        },
+        getNavbarLinksForActiveUser(state, getters){
+            return getters.getNavigationLinksForActiveUser.filter(Link => Link.Position === "Navbar");
         },
         getCurrentlyActiveLink(state){
             return state.currentlyActiveRoute;

@@ -23,7 +23,7 @@ export default {
     name : "NavigationBar",
     computed: {
       NavigationLinks : function(){
-        return this.$store.getters.getNavigationLinksForActiveUser
+        return this.$store.getters.getNavbarLinksForActiveUser
       },
       CurrentlyActiveLink : function(){
         return this.$store.getters.getCurrentlyActiveLink;
