@@ -40,16 +40,20 @@ const router = new VueRouter({
 
 
 router.beforeEach(function (to, from, next) {
-  document.title = to.name;
   if((store.getters.getNavigationLinksForActiveUser.some(link => link.Route === to.path))){
+    document.title = to.name;
     store.commit("changeCurrentlyActiveRoute", to.path);
     next();
   }
+  else{
+    console.warn("You're not allowed to see the requested page");
+  }
 });
 
+store.commit('initializeStore');
+
 // Subscribe to store updates
-store.subscribe((mutation, state) => {
-  if(mutation.type === "changeCurrentlyActiveRoute") return;
+store.subscribe((state) => {
 	localStorage.setItem('store', JSON.stringify(state));
 });
 
@@ -67,6 +71,5 @@ new Vue({
   render: h => h(App),
   mounted(){
     AOS.init()
-		this.$store.commit('initializeStore');
   }
 }).$mount('#app')

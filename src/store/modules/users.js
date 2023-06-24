@@ -1,8 +1,9 @@
 export default {
     state: {
-      activeUser: { username : "Logged out", role: "loggedOut", accessLevel : 0, favoriteProjects : new Set() },
+      activeUser: {username : "Logged out", role: "loggedOut", accessLevel : 0, favoriteProjects : new Set() },
       userAccounts : [
         {
+            "id" : 1,
             "username": "pera",
             "password": "sifra1",
             "role": "admin",
@@ -10,6 +11,7 @@ export default {
             'favoriteProjects' : new Set()
         },
         {
+            "id" : 2,
             "username": "mika",
             "password": "sifra1",
             "role": "user",
@@ -17,6 +19,7 @@ export default {
             'favoriteProjects' : new Set()
         },
         {
+            "id" : 3,
             "username": "zika",
             "password": "sifra1",
             "role": "user",
