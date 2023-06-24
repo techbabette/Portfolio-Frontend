@@ -58,7 +58,7 @@ else{
 }
 
 // Subscribe to store updates
-store.subscribe((state) => {
+store.subscribe((mutation, state) => {
 	localStorage.setItem('store', JSON.stringify(state));
 });
 
