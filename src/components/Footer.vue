@@ -5,7 +5,7 @@
     </div>
     <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
       <li v-for="FooterIconLink,index in FooterIconLinks" :key="index" class="ms-3">
-        <a class="BlackTextColor" :href="FooterIconLink.url">
+        <a class="BlackTextColor" :href="FooterIconLink.url" target="_blank">
             <span class="iconify" :data-icon="FooterIconLink.icon"></span>
         </a>
       </li>
@@ -29,7 +29,7 @@ export default {
                 "icon" : "la:twitter"
             },
             {
-                "url" : "documentation.pdf",
+                "url" : "./documentation.pdf",
                 "name" : "fa-light",
                 "icon" : "fa-file"
             }
