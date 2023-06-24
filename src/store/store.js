@@ -11,7 +11,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     modules: {
       users: users,
-      projects,
+      projects : projects,
       navigationLinks : navigationLinks,
       adminPanel : adminPanel
     },

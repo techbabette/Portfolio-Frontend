@@ -50,7 +50,12 @@ router.beforeEach(function (to, from, next) {
   }
 });
 
-store.commit('initializeStore');
+if(localStorage.getItem("store")){
+  store.commit('initializeStore');
+}
+else{
+  store.dispatch("getProjectsFromApi");
+}
 
 // Subscribe to store updates
 store.subscribe((state) => {
