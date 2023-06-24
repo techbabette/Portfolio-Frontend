@@ -23,15 +23,14 @@ export default {
     },
     data(){
         return {
-            that : this,
             AdminTabs : [
                 {
                     Title : "Projects",
-                    ItemGetter : "users",
+                    ItemGetter : "getAllProjects",
                     Headers : [
                         {
                             Text : "Project name",
-                            Field : "username"
+                            Field : "Name"
                         }
                     ]
                 },
@@ -68,11 +67,6 @@ export default {
         },
         CurrentItems : function(){
             return this.$store.getters[this.CurrentActiveTab.ItemGetter]
-        }
-    },
-    methods : {
-        ConsoleThis : function(){
-            console.log(this.CurrentActiveTabIndex);
         }
     }
 }

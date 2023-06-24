@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import users from './modules/users'
+import projects from './modules/projects'
 import navigationLinks from './modules/navigationLinks'
 import adminPanel from './modules/adminPanel'
 
@@ -10,6 +11,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     modules: {
       users: users,
+      projects,
       navigationLinks : navigationLinks,
       adminPanel : adminPanel
     },
