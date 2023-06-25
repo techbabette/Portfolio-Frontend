@@ -15,6 +15,9 @@ export default {
     getters: {
         getAllProjects(state){
             return state.projects;
+        },
+        getSpecificProject: (state) => (id) => {
+            return state.projects.find(project => project.Id === parseInt(id));
         }
     },
     actions : {

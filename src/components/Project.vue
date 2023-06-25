@@ -1,5 +1,5 @@
 <template>
-    <div class="row SingleProject my-3 animated bounce infinite" :data-aos="SlideDirection" data-aos-delay="100" style="background-color: #292929; color: #fafafa;" 
+    <div class="row SingleProject my-3 animated bounce infinite" :data-aos="SlideDirection" data-aos-delay="100"
     :class="{'flex-row-reverse' : IsOdd, 'EvenProjectBorder' : !IsOdd, 'OddProjectBorder' : IsOdd}">
         <div class="col-12 col-md-4 p-2 border-black">
             <img :src="ProjectThumbnailImage" :alt="ProjectName" class="img-fluid">
@@ -8,7 +8,7 @@
             <h2 :class="{'PrimaryTextColor' : IsOdd, 'SecondaryTextColor' : !IsOdd}" role="button" @click="OpenProjectPage(ProjectId)">{{ ProjectName }}</h2>
             <p>{{ ProjectDescription }}</p>
             <p>Technologies used:
-                <span v-for="Technology, index in ProjectTechnologies" :key="index">{{ Technology }} </span>
+                <span class="btn btn-info mx-1 my-1" v-for="Technology, index in ProjectTechnologies" :key="index">{{ Technology }} </span>
             </p>
             <p>Made in 2023</p>
             <p>
@@ -72,6 +72,8 @@ export default {
 </script>
 <style scoped>
 .SingleProject{
+    background-color: #292929; 
+    color: #fafafa;
     border: 1px solid black;
     transition: scale 2s; /* Animation */
     border-radius: 2px;

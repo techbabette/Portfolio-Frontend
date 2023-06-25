@@ -37,5 +37,6 @@ export default {
 <style scoped>
 .admin-tab{
     border-radius: 15px 2px 2px 2px;
+    margin-right: 2px;
 }
 </style>
