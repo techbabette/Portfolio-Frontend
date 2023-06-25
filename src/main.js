@@ -8,6 +8,7 @@ import LoginPage from "./components/pages/Login.vue";
 import RegisterPage from "./components/pages/Register.vue";
 import AdminPage from "./components/pages/Admin.vue";
 import TextArrayTestPage from "./components/pages/TextArray.vue"
+import ManageProjects from "./components/pages/ManageProjects.vue"
 import Axios from "axios";
 import store from "./store/store"
 import AOS from 'aos'
@@ -25,6 +26,9 @@ const routes = [
   },
   {
     path : "/project/:id", component: ProjectPage, name : "Project"
+  },
+  {
+    path : "/projects/manage/:id", component: ManageProjects, name : "Manage projects"
   },
   {
     path : "/login", component: LoginPage, name : "Login"

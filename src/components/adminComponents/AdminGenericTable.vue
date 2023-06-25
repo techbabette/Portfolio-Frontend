@@ -13,7 +13,7 @@
                 <td>{{ index + 1 }}</td>
                 <td v-for="Header, hIndex in Headers" :key="hIndex">{{ Item[Header.Field] }}</td>
                 <td v-if="Options">
-                    <a v-for="Option, oIndex in Options" :id="Item[IdentificationField]" :key="oIndex" :class="Option.class" @click="Option.onClick">{{ Option.Name }}</a>
+                    <a v-for="Option, oIndex in Options" :data-id="Item[IdentificationField]" :key="oIndex" :class="Option.class" @click="Option.onClick">{{ Option.Name }}</a>
                 </td>
             </tr>
         </tbody>

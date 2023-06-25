@@ -9,7 +9,7 @@
                 :index ="index"/>
             </div>
         </div>
-        <AdminGenericTable :Items="CurrentItems" :Headers="CurrentHeaders" :Options="CurrentActiveTab.Options"/>
+        <AdminGenericTable :Items="CurrentItems" :Headers="CurrentHeaders" :IdentificationField="CurrentActiveTab.IdentificationField"  :Options="CurrentActiveTab.Options"/>
     </div>
 </template>
 <script>
@@ -27,11 +27,26 @@ export default {
                 {
                     Title : "Projects",
                     ItemGetter : "getAllProjects",
+                    IdentificationField : "Id",
                     Headers : [
                         {
                             Text : "Project name",
                             Field : "Name"
                         }
+                    ],
+                    Options : [
+                        {Name : "Edit", onClick : (event) => {
+                            let requestedId = parseInt(event.target.dataset.id)
+
+                            console.log(event.target.dataset.id);
+
+                            this.$router.push({name : "Manage projects", params : {id : requestedId}})
+                        }, class : "btn btn-dark mx-1"},
+                        {Name : "Delete", onClick : (event) => {
+                            let requestedId = parseInt(event.target.dataset.id);
+
+                            this.$store.commit("deleteProject", requestedId);
+                        }, class : "btn btn-danger"}
                     ]
                 },
                 {

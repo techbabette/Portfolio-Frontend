@@ -31,6 +31,13 @@ export default {
                 "Access level required" : 2
             },
             {
+                "Title" : "Manage projects",
+                "Route" : "/projects/manage",
+                "RouteName" : "Manage projects",
+                "Position" : "Hidden",
+                "Access level required" : 2
+            },
+            {
                 "Title" : "Text array test page",
                 "Route" : "/tArray",
                 "RouteName" : "Text array test page",

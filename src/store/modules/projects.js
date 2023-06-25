@@ -8,6 +8,17 @@ export default {
         addNewProject(state, newProject){
             state.projects.push(newProject);
         },
+        changeProject(state, newProjectInformation){
+            for(let project of state.projects){
+                if(project.Id === newProjectInformation.Id){
+                    project = newProjectInformation;
+                    break;
+                }
+            }
+        },
+        deleteProject(state, projectId){
+            state.projects = state.projects.filter(project => project.Id !== projectId);
+        },
         setProjects(state, newArrayOfProjects){
             state.projects = newArrayOfProjects;
         }
@@ -29,6 +40,38 @@ export default {
             catch(err){
                 console.log("There was an error communicating with the server");
             }
+        },
+        editProject({commit, state}, projectInformationSent){
+            let result = {};
+
+            result.errors = {};
+
+            let existingProject = state.projects.find(project => project.Id === projectInformationSent.Id)
+
+            if(!existingProject){
+                result.errors.generalError = "Project with supplied ID does not exist";
+                return result;
+            }
+
+            commit("changeProject", projectInformationSent);
+
+            return result;
+        },
+        deleteProject({commit, state}, projectIdSent){
+            let result = {};
+
+            result.errors = {};
+
+            let existingProject = state.projects.find(project => project.Id === projectIdSent)
+
+            if(!existingProject){
+                result.errors.generalError = "Project with supplied ID does not exist";
+                return result;
+            }
+
+            commit("deleteProject", projectIdSent);
+
+            return result;
         }
     }
 }
