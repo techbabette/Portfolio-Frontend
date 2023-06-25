@@ -78,7 +78,10 @@ export default {
                         },
                         {
                             Text : "Role",
-                            Field : "role"
+                            Field : "role",
+                            Change : function(value){
+                                return value.charAt(0).toUpperCase() + value.slice(1);
+                            }
                         }
                     ],
                     Options : [

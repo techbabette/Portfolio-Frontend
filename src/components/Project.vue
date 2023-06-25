@@ -7,7 +7,7 @@
         <div class="col-12 col-md-8 p-2 px-4">
             <h2 :class="{'PrimaryTextColor' : IsOdd, 'SecondaryTextColor' : !IsOdd}" role="button" @click="OpenProjectPage(ProjectId)">{{ ProjectName }}</h2>
             <p>{{ ProjectDescription }}</p>
-            <p>Technologies used:
+            <p v-if="HasTechnologies">Technologies used:
                 <span class="btn btn-info mx-1 my-1" v-for="Technology, index in ProjectTechnologies" :key="index">{{ Technology }} </span>
             </p>
             <p>Made in 2023</p>
@@ -66,6 +66,9 @@ export default {
         },
         SlideDirection : function(){
             return this.IsOdd ? "slide-right" : "slide-left"
+        },
+        HasTechnologies : function(){
+            return this.ProjectTechnologies && this.ProjectTechnologies.length > 0;
         }
     }
 }

@@ -11,7 +11,7 @@
         <tbody id="table-result-holder">
             <tr v-for="Item, index in Items" :key="index">
                 <td>{{ index + 1 }}</td>
-                <td v-for="Header, hIndex in Headers" :key="hIndex">{{ Item[Header.Field] }}</td>
+                <td v-for="Header, hIndex in Headers" :key="hIndex">{{ ApplyChanges(Item[Header.Field], Header) }}</td>
                 <td v-if="Options">
                     <a v-for="Option, oIndex in Options" :data-id="Item[IdentificationField]" :key="oIndex" :class="Option.class" @click="Option.onClick">{{ Option.Name }}</a>
                 </td>
@@ -46,6 +46,15 @@ export default {
     computed : {
         ShowTable : function(){
             return this.Items && this.Items.length > 0;
+        }
+    },
+    methods : {
+        ApplyChanges(InputValue, Header){
+            if(!Header.Change){
+                return InputValue
+            }
+
+            return Header.Change(InputValue);
         }
     }
 }
