@@ -55,7 +55,7 @@ router.beforeEach(function (to, from, next) {
   let requestedPageName = to.name;
   if((store.getters.getNavigationLinksForActiveUser.some(link => link.RouteName === requestedPageName))){
     document.title = to.name;
-    store.commit("changeCurrentlyActiveRoute", to.path);
+    store.commit("changeCurrentlyActiveRouteName", requestedPageName);
     next();
   }
   else{

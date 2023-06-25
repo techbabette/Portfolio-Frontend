@@ -1,6 +1,6 @@
 export default {
     state: {
-        currentlyActiveRoute : "/",
+        currentlyActiveRouteName : "Home page",
         navigationLinks : [
             {
                 "Title" : "Home",
@@ -64,8 +64,8 @@ export default {
         ]
     },
     mutations : {
-        changeCurrentlyActiveRoute(state, newActiveRoute){
-            state.currentlyActiveRoute = newActiveRoute;
+        changeCurrentlyActiveRouteName(state, newActiveRouteName){
+            state.currentlyActiveRouteName = newActiveRouteName;
         }
     },
     getters: {
@@ -84,7 +84,7 @@ export default {
             return getters.getNavigationLinksForActiveUser.filter(Link => Link.Position === "Navbar");
         },
         getCurrentlyActiveLink(state){
-            return state.currentlyActiveRoute;
+            return state.currentlyActiveRouteName;
         }
     }
 }

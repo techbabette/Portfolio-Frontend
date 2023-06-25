@@ -8,7 +8,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li v-for="NavigationLink,index in NavigationLinks" :key="index" class="nav-item">
-           <router-link class="nav-link" :to="NavigationLink.Route" :class="{active : CurrentlyActiveLink === NavigationLink.Route}">{{ NavigationLink.Title }}</router-link>
+           <router-link class="nav-link" :to="NavigationLink.Route" :class="{active : CurrentlyActiveLink === NavigationLink.RouteName}">{{ NavigationLink.Title }}</router-link>
         </li>
         <li class="nav-item">
           <a href="#" v-accessLevel="1" @click="SignUserOut" class="nav-link">Log out</a>
@@ -32,8 +32,6 @@ export default {
     methods: {
       async SignUserOut (){
         let successfulLogout = await this.$store.dispatch("signUserOut");
-
-        console.log(this.$router);
 
         if(successfulLogout && this.$router.history.current.path != "/"){
           this.$router.push("/");

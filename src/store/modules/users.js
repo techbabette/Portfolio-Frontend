@@ -1,13 +1,23 @@
 export default {
     state: {
       activeUser: {username : "Logged out", role: "loggedOut", accessLevel : 0, favoriteProjects : new Set() },
+      userRoles : {
+        "admin" : {
+            accessLevel : 2
+        },
+        "user" : {
+            accessLevel : 1
+        },
+        "loggedOut" : {
+            accessLevel : 0
+        }
+      },
       userAccounts : [
         {
             "id" : 1,
             "username": "pera",
             "password": "sifra1",
             "role": "admin",
-            "accessLevel" : 2,
             'favoriteProjects' : new Set()
         },
         {
@@ -15,7 +25,6 @@ export default {
             "username": "mika",
             "password": "sifra1",
             "role": "user",
-            "accessLevel" : 1,
             'favoriteProjects' : new Set()
         },
         {
@@ -23,7 +32,6 @@ export default {
             "username": "zika",
             "password": "sifra1",
             "role": "user",
-            "accessLevel" : 1,
             'favoriteProjects' : new Set()
         }
         ],
@@ -66,8 +74,6 @@ export default {
 
             newUserAccount.role = "user";
 
-            newUserAccount.accessLevel = "1";
-
             newUserAccount.favoriteProjects = new Set();
 
             commit("createNewUser", newUserAccount);
@@ -86,7 +92,7 @@ export default {
         },
         setActiveUser(state, newUserObject){
             if(!newUserObject){
-                state.activeUser = { username : "Logged out", role: "loggedOut", accessLevel : 0, favoriteProjects : new Set() }
+                state.activeUser = { username : "Logged out", role: "loggedOut", favoriteProjects : new Set() }
                 return;
             }
 
@@ -97,17 +103,14 @@ export default {
         username(state) {
             return state.activeUser.username
         },
-        isAdmin(state) {
-            return state.activeUser.accessLevel > 1
-        },
         role(state) {
             return state.activeUser.role
         },
         users(state) {
             return state.userAccounts
         },
-        acitveUserAccessLevel(state){
-            return state.activeUser.accessLevel;
+        acitveUserAccessLevel(state, getters){
+            return state.userRoles[getters.role].accessLevel;
         }
     }
 }

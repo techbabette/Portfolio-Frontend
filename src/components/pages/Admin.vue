@@ -77,8 +77,8 @@ export default {
                             Field : "username"
                         },
                         {
-                            Text : "Access level",
-                            Field : "accessLevel"
+                            Text : "Role",
+                            Field : "role"
                         }
                     ],
                     Options : [
