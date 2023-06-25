@@ -1,7 +1,7 @@
 <template>
     <div>
         <label :for="id" v-if="label" class="form-label">{{ label }}</label>
-        <input v-model="localValue" class="form-control" :type="type" :name="name" :id="id">
+        <input v-model="localValue" class="form-control" :placeholder="placeholder" :type="type" :name="name" :id="id">
         <p v-if="errorMessage" class="alert alert-danger py-2 my-1">{{ errorMessage }}</p>
         <p v-if="ShowHint">{{ hint }}</p>
     </div>
@@ -14,7 +14,7 @@ export default {
     },
     data(){
         return {
-            id : Math.floor(Math.random() * 100) + this.name,
+            id : Math.floor(Math.random() * 1000) + this.name,
             localValue : ""
         }
     },
@@ -25,6 +25,9 @@ export default {
         name : {
             Type : String,
             default : "field"
+        },
+        placeholder : {
+            Type : String
         },
         type : {
             Type : String,

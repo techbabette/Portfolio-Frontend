@@ -21,6 +21,15 @@ export default {
                 "Access level required" : 2
             },
             {
+                "Title" : "Text array test page",
+                "Route" : "/tArray",
+                "Position" : "Navbar",
+                "Access level required" : 2
+            },
+            // {
+            //     path : "/tArray", component: TextArrayTestPage, name : "Text array test page"
+            //   }
+            {
                 "Title" : "Login",
                 "Route" : "/login",
                 "Position" : "Navbar",

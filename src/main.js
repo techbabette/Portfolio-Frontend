@@ -6,6 +6,7 @@ import ProjectsPage from "./components/pages/Projects.vue";
 import LoginPage from "./components/pages/Login.vue";
 import RegisterPage from "./components/pages/Register.vue";
 import AdminPage from "./components/pages/Admin.vue";
+import TextArrayTestPage from "./components/pages/TextArray.vue"
 import Axios from "axios";
 import store from "./store/store"
 import AOS from 'aos'
@@ -29,6 +30,9 @@ const routes = [
   },
   {
     path : "/admin", component: AdminPage, name : "Admin panel"
+  },
+  {
+    path : "/tArray", component: TextArrayTestPage, name : "Text array test page"
   }
 ]
 
