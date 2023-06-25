@@ -5,24 +5,35 @@ export default {
             {
                 "Title" : "Home",
                 "Route" : "/",
+                "RouteName" : "Home page",
                 "Position" : "Navbar",
                 "Access level required" : 0
             },
             {
                 "Title" : "Projects",
                 "Route" : "/projects",
+                "RouteName" : "My projects",
                 "Position" : "Navbar",
+                "Access level required" : 0
+            },
+            {
+                "Title" : "Project",
+                "Route" : "/project",
+                "RouteName" : "Project",
+                "Position" : "Hidden",
                 "Access level required" : 0
             },
             {
                 "Title" : "Admin panel",
                 "Route" : "/admin",
+                "RouteName" : "Admin panel",
                 "Position" : "Navbar",
                 "Access level required" : 2
             },
             {
                 "Title" : "Text array test page",
                 "Route" : "/tArray",
+                "RouteName" : "Text array test page",
                 "Position" : "Navbar",
                 "Access level required" : 2
             },
@@ -32,12 +43,14 @@ export default {
             {
                 "Title" : "Login",
                 "Route" : "/login",
+                "RouteName" : "Login",
                 "Position" : "Navbar",
                 "Access level required" : -1
             },
             {
                 "Title" : "Register",
                 "Route" : "/register",
+                "RouteName" : "Register",
                 "Position" : "Navbar",
                 "Access level required" : -1
             }

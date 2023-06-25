@@ -5,7 +5,7 @@
             <img :src="ProjectThumbnailImage" :alt="ProjectName" class="img-fluid">
         </div>
         <div class="col-12 col-md-8 p-2 px-4">
-            <h2 :class="{'PrimaryTextColor' : IsOdd, 'SecondaryTextColor' : !IsOdd}">{{ ProjectName }}</h2>
+            <h2 :class="{'PrimaryTextColor' : IsOdd, 'SecondaryTextColor' : !IsOdd}" role="button" @click="OpenProjectPage(ProjectId)">{{ ProjectName }}</h2>
             <p>{{ ProjectDescription }}</p>
             <p>Technologies used:
                 <span v-for="Technology, index in ProjectTechnologies" :key="index">{{ Technology }} </span>
@@ -22,6 +22,10 @@
 export default {
     name : "SingleProject",
     props : {
+        ProjectId : {
+            Type : Number,
+            required : true
+        },
         ProjectName : {
             Type : String,
             required : true
@@ -49,6 +53,11 @@ export default {
         NumberByOrder : {
             Type : Number,
             required : true
+        }
+    },
+    methods : {
+        OpenProjectPage(id){
+            this.$router.push({name : "Project", params : {id}})
         }
     },
     computed : {

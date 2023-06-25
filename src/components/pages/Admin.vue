@@ -48,7 +48,7 @@ export default {
                         }
                     ],
                     Options : [
-                        {Name : "Edit", onClick : (event) => console.log(event.target), class : "btn btn-dark"},
+                        {Name : "Edit", onClick : (event) => console.log(event.target), class : "btn btn-dark mx-1"},
                         {Name : "Delete", onClick : function(){alert("Clicked a button!")}, class : "btn btn-danger"}
                     ]
                 }

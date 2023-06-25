@@ -2,6 +2,7 @@
     <div>
         <h1>My projects</h1>
         <Project v-for="Project,index in Projects" :key = "index" 
+        :ProjectId="Project.Id"
         :ProjectName ="Project.Name" :ProjectDescription="Project.Description" :ProjectTechnologies="Project.Technologies"
         :ProjectThumbnailImage = "Project['Preview image link']" :NumberByOrder="index"
         :ProjectRepositoryLink = "Project['Github link']" :ProjectDemoLink="Project['Hosted link']"/>

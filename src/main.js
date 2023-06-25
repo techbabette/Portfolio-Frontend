@@ -3,6 +3,7 @@ import App from './App.vue'
 import VueRouter from "vue-router"
 import LandingPage from "./components/pages/Landing.vue";
 import ProjectsPage from "./components/pages/Projects.vue";
+import ProjectPage from "./components/pages/Project.vue";
 import LoginPage from "./components/pages/Login.vue";
 import RegisterPage from "./components/pages/Register.vue";
 import AdminPage from "./components/pages/Admin.vue";
@@ -21,6 +22,9 @@ const routes = [
   },
   {
     path : "/projects", component: ProjectsPage, name : "My projects"
+  },
+  {
+    path : "/project/:id", component: ProjectPage, name : "Project"
   },
   {
     path : "/login", component: LoginPage, name : "Login"
@@ -44,7 +48,8 @@ const router = new VueRouter({
 
 
 router.beforeEach(function (to, from, next) {
-  if((store.getters.getNavigationLinksForActiveUser.some(link => link.Route === to.path))){
+  let requestedPageName = to.name;
+  if((store.getters.getNavigationLinksForActiveUser.some(link => link.RouteName === requestedPageName))){
     document.title = to.name;
     store.commit("changeCurrentlyActiveRoute", to.path);
     next();
