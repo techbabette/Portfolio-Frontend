@@ -9,7 +9,9 @@
                 :index ="index"/>
             </div>
         </div>
-        <AdminGenericTable :Items="CurrentItems" :Headers="CurrentHeaders" :IdentificationField="CurrentActiveTab.IdentificationField"  :Options="CurrentActiveTab.Options"/>
+        <AdminGenericTable :Items="CurrentItems" :Headers="CurrentHeaders" 
+        :IdentificationField="CurrentActiveTab.IdentificationField"  :Options="CurrentActiveTab.Options"
+        :TableOptions="CurrentActiveTab.TableOptions"/>
     </div>
 </template>
 <script>
@@ -34,19 +36,36 @@ export default {
                             Field : "Name"
                         }
                     ],
+                    TableOptions : [
+                        {
+                            Name : "Create new project",
+                            class : "btn btn-success my-1",
+                            onClick : () => {
+                                this.$router.push({name : "Manage projects", params : {id : "new"}})
+                            }
+                        }
+                    ],
                     Options : [
-                        {Name : "Edit", onClick : (event) => {
-                            let requestedId = parseInt(event.target.dataset.id)
+                        {
+                            Name : "Edit",
+                            class : "btn btn-dark mx-1", 
+                            onClick : (event) => {
+                                let requestedId = parseInt(event.target.dataset.id)
 
-                            console.log(event.target.dataset.id);
+                                console.log(event.target.dataset.id);
 
-                            this.$router.push({name : "Manage projects", params : {id : requestedId}})
-                        }, class : "btn btn-dark mx-1"},
-                        {Name : "Delete", onClick : (event) => {
-                            let requestedId = parseInt(event.target.dataset.id);
+                                this.$router.push({name : "Manage projects", params : {id : requestedId}})
+                            }
+                        },
+                        {
+                            Name : "Delete",
+                            class : "btn btn-danger",
+                            onClick : (event) => {
+                                let requestedId = parseInt(event.target.dataset.id);
 
-                            this.$store.commit("deleteProject", requestedId);
-                        }, class : "btn btn-danger"}
+                                this.$store.commit("deleteProject", requestedId);
+                            }
+                        }
                     ]
                 },
                 {

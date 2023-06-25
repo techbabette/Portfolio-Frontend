@@ -41,6 +41,17 @@ export default {
                 console.log("There was an error communicating with the server");
             }
         },
+        createNewProject({commit, state}, projectInformationSent){
+            let result = {};
+
+            result.errors = {};
+
+            projectInformationSent.Id = state.projects[state.projects.length - 1].Id + 1;
+
+            commit("addNewProject", projectInformationSent);
+
+            return result;
+        },
         editProject({commit, state}, projectInformationSent){
             let result = {};
 

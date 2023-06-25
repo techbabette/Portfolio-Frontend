@@ -17,6 +17,7 @@
                 </td>
             </tr>
         </tbody>
+        <button v-for="TableOption, index in TableOptions" @click="TableOption.onClick" :class="TableOption.class" :key="index">{{ TableOption.Name }}</button>
     </table>
     <p v-else>No items found</p>
 </div>
@@ -32,6 +33,9 @@ export default {
             Type : Array
         },
         Options : {
+            Type : Array
+        },
+        TableOptions : {
             Type : Array
         },
         IdentificationField : {

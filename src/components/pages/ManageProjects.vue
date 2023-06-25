@@ -2,7 +2,7 @@
     <div class="row">
         <TextInput v-model="localProjectInformation.Name" label="Project name*"/>
         <TextInput v-model="localProjectInformation['Preview image link']" label="Project image*"/>
-        <img :src="localProjectInformation['Preview image link']" class="img-fluid w-25 my-2"/>
+        <img :src="localProjectInformation['Preview image link']" alt="Image placeholder" class="img-fluid w-25 my-2"/>
         <label class="form-label" for="ProjectDescription">Description*</label>
         <textarea required="required" class="form-control" id="ProjectDescription" v-model="localProjectInformation.Description"></textarea>
         <TextInput v-model="localProjectInformation['Github link']" label="Github link*"/>
@@ -49,7 +49,10 @@ export default {
         }
     },
     methods : {
-        SubmitChanges : async function(){
+        // async attemptRegistration (e)
+        async SubmitChanges(e){
+            e.preventDefault();
+
             this.localProjectInformation.Technologies = this.localProjectInformation.Technologies.filter(tech => tech !== "");
 
             let result = await this.$store.dispatch(this.dispatchTarget, this.localProjectInformation);
