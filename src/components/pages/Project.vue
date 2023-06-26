@@ -4,7 +4,7 @@
             <h2>{{ currentProject.Name }}</h2>
             <img :src="currentProject['Preview image link']" :alt="currentProject.name" class="img-fluid">
             <p class="my-1">{{ currentProject.Description }}</p>
-            <div>
+            <div v-if="HasTechnologies">
                 <p class="my-0">Technologies used: </p>
                 <span class="btn btn-info mx-1 my-1" v-for="Technology,index in currentProject.Technologies" :key="index"> {{ Technology }}</span>
             </div>
@@ -28,6 +28,9 @@ export default {
     computed: {
         currentProject: function(){
             return this.$store.getters.getSpecificProject(this.id);
+        },
+        HasTechnologies : function(){
+            return this.currentProject.ProjectTechnologies && this.currentProject.ProjectTechnologies.length > 0;
         }
     }
 }
