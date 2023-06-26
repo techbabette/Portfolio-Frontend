@@ -8,7 +8,7 @@
         <div class="mb-3">
             <TextInput v-model="loginRequestInformation.password" type="password" label="Password"/>
         </div>
-        <div v-if="loginAttemptError">{{ loginAttemptError }}</div>
+        <div v-if="errors.loginAttemptError">{{ errors.loginAttemptError }}</div>
         <button @click="attemptLogin" class="btn PrimaryButton">Attempt login</button>
 </form>
     </div>
@@ -26,7 +26,7 @@ export default{
                 username: "pera",
                 password: "sifra1"
             },
-            loginAttemptError: ""
+            errors : {}
         }
     },
     methods : {
@@ -37,13 +37,13 @@ export default{
 
             let loginSuccess = Object.keys(loginResult.errors).length < 1;
 
+            this.errors = loginResult.errors
+
             if(loginSuccess){
                 this.loginAttemptError = "";
                 this.$router.push("/");
                 return;
             }
-
-            this.loginAttemptError = loginResult.errors.loginError;
         }
     }
 }

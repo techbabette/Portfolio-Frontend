@@ -34,6 +34,32 @@ export default {
                         {
                             Text : "Project name",
                             Field : "Name"
+                        },
+                        {
+                            Text : "Short description",
+                            Field : "Description",
+                            Change : function(text){
+                                let maxLength = 30;
+                                if(text.length <= maxLength) return text;
+                                let wordsInText = text.split(" ");
+                                let shortenedText = "";
+                                for(let word of wordsInText){
+                                    if(word.length + shortenedText.length <= maxLength) shortenedText += word + ' ';
+                                    else{
+                                        shortenedText = shortenedText.trim() + '...';
+                                        break;
+                                    }
+                                }
+                                return shortenedText;
+                            }
+                        },
+                        {
+                            Text : "Technologies used",
+                            Field : "Technologies",
+                            Change : function(arrayOfTechnologies){
+                                let technologiesString = arrayOfTechnologies.join(", ");
+                                return technologiesString.length > 0 ? technologiesString : "/"
+                            }
                         }
                     ],
                     TableOptions : [

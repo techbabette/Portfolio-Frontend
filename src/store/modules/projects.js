@@ -44,11 +44,35 @@ export default {
         createNewProject({commit, state}, projectInformationSent){
             let result = {};
 
+            let hasErrors = false;
+
             result.errors = {};
+
+            if(!projectInformationSent.Name){
+                result.errors.projectNameError = "Project name cannot be empty";
+                hasErrors = true;
+            }
+
+            if(!projectInformationSent["Preview image link"]){
+                result.errors.imagePreviewError = "Preview image link cannot be empty";
+                hasErrors = true;
+            }
+
+            if(!projectInformationSent.Description){
+                result.errors.projectDescriptionError = "Project description cannot be empty";
+                hasErrors = true;
+            }
+
+            if(!projectInformationSent["Github link"]){
+                result.errors.GithubLinkError = "Github link cannot be empty";
+                hasErrors = true;
+            }
 
             projectInformationSent.Id = state.projects[state.projects.length - 1].Id + 1;
 
-            commit("addNewProject", projectInformationSent);
+            if(!hasErrors){
+                commit("addNewProject", projectInformationSent);
+            }
 
             return result;
         },
@@ -57,6 +81,8 @@ export default {
 
             result.errors = {};
 
+            let hasErrors = false;
+
             let existingProject = state.projects.find(project => project.Id === projectInformationSent.Id)
 
             if(!existingProject){
@@ -64,7 +90,30 @@ export default {
                 return result;
             }
 
-            commit("changeProject", projectInformationSent);
+            if(!projectInformationSent.Name){
+                result.errors.projectNameError = "Project name cannot be empty";
+                hasErrors = true;
+            }
+
+            if(!projectInformationSent["Preview image link"]){
+                result.errors.imagePreviewError = "Preview image link cannot be empty";
+                hasErrors = true;
+            }
+
+            if(!projectInformationSent.Description){
+                result.errors.projectDescriptionError = "Project Description cannot be empty";
+                hasErrors = true;
+            }
+
+            if(!projectInformationSent["Github link"]){
+                result.errors.GithubLinkError = "Github link cannot be empty";
+                hasErrors = true;
+            }
+
+            if(!hasErrors){
+                console.log("here");
+                commit("changeProject", projectInformationSent);
+            }
 
             return result;
         },
