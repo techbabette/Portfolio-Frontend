@@ -8,6 +8,7 @@
                 <p class="my-0">Technologies used: </p>
                 <span class="btn btn-info mx-1 my-1" v-for="Technology,index in currentProject.Technologies" :key="index"> {{ Technology }}</span>
             </div>
+            <p>Made in {{ currentProject.ProjectYearOfDevelopment }}</p>
             <div>
                 <p class="my-0">Links: </p>
                 <a class="btn PrimaryButton mx-1 my-1" v-if="currentProject['Github link']" :href="currentProject['Github link']">Github Link</a>

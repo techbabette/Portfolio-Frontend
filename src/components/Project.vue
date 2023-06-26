@@ -10,7 +10,7 @@
             <p v-if="HasTechnologies">Technologies used:
                 <span class="btn btn-info mx-1 my-1" v-for="Technology, index in ProjectTechnologies" :key="index">{{ Technology }} </span>
             </p>
-            <p>Made in 2023</p>
+            <p>Made in {{ ProjectYearOfDevelopment }}</p>
             <p>
                 <a class="btn" :class="{'AccentButton' : !IsOdd, 'PrimaryButton': IsOdd}" :href="ProjectRepositoryLink">Github Link</a>
                 <a class="mx-2 btn SecondaryButton" v-if="ProjectDemoLink" :href="ProjectDemoLink">Live demo</a>
@@ -33,6 +33,10 @@ export default {
         ProjectDescription : {
             Type : String,
             required : true
+        },
+        ProjectYearOfDevelopment : {
+            Type : Number,
+            default : 2023
         },
         ProjectTechnologies : {
             Type: Array,
