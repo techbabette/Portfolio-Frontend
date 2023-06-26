@@ -135,16 +135,20 @@ export default {
             }
 
             if(changingPassword && userInformationSent.password.length < 6){
-                result.errors.passwordError = "Password cannot be shorter than six characters"
+                result.errors.passwordError = "Password cannot be shorter than six characters";
                 hasErrors = true;
             }
 
-            if(!changingPassword){
-                userInformationSent.password = existingUser.password;
+            if(changingPassword){
+                existingUser.password = userInformationSent.password;
             }
 
+            existingUser.username = userInformationSent.username;
+
+            existingUser.role = userInformationSent.role;
+
             if(!hasErrors){
-                commit("changeUserInformation", userInformationSent);
+                commit("changeUserInformation", existingUser);
             }
 
             return result;
