@@ -1,6 +1,6 @@
 export default {
     state: {
-      activeUser: {username : "Logged out", role: "loggedOut", accessLevel : 0, favoriteProjects : new Set() },
+      activeUserId: 0,
       userRoles : {
         "admin" : {
             accessLevel : 2
@@ -8,7 +8,7 @@ export default {
         "user" : {
             accessLevel : 1
         },
-        "loggedOut" : {
+        "logged out (blocked)" : {
             accessLevel : 0
         }
       },
@@ -51,12 +51,21 @@ export default {
                 return result;
             }
 
+            let accessLevel = state.userRoles[attemptedAccount.role].accessLevel;
+
+            if(accessLevel < 1){
+                result.errors.loginError = "Account blocked";
+                return result;
+            }
+
             if(attemptedAccount.password !== loginInformationSent.password) {
                 result.errors.loginError = "Invalid username/password";
                 return result;
             }
 
-            commit("setActiveUser", attemptedAccount);
+            commit("setActiveUser", attemptedAccount.id);
+
+            console.log(result);
 
             return result;
         },
@@ -67,6 +76,16 @@ export default {
 
             if(state.userAccounts.some(account => account.username == registrationInformationSent.username)){
                 result.errors.usernameError = "Account with this username already exists"
+                return result;
+            }
+
+            if(registrationInformationSent.username.length < 4){
+                result.errors.passwordError = "Username cannot be shorter than six characters"
+                return result;
+            }
+
+            if(registrationInformationSent.password.length < 6){
+                result.errors.passwordError = "Password cannot be shorter than six characters"
                 return result;
             }
 
@@ -81,33 +100,127 @@ export default {
             return result;
         },
         signUserOut({commit}){
-            commit("setActiveUser", null);
+            commit("setActiveUser", 0);
 
             return true;
+        },
+        editUser({commit, state}, userInformationSent){
+            let result = {};
+
+            result.errors = {};
+
+            let hasErrors = false;
+
+            let changingPassword = false;
+
+            let existingUser = state.userAccounts.find(user => user.id === userInformationSent.id);
+
+            if(!existingUser){
+                result.errors.generalError = "User does not exist";
+                hasErrors = true;
+            }
+
+            if(!userInformationSent.username){
+                result.errors.usernameError = "Username cannot be shorter than six characters";
+                hasErrors = true;
+            }
+
+            if(!userInformationSent.role){
+                result.errors.roleError = "User role cannot be empty";
+                hasErrors = true;
+            }
+
+            if(userInformationSent.password){
+                changingPassword = true;
+            }
+
+            if(changingPassword && userInformationSent.password.length < 6){
+                result.errors.passwordError = "Password cannot be shorter than six characters"
+                hasErrors = true;
+            }
+
+            if(!changingPassword){
+                userInformationSent.password = existingUser.password;
+            }
+
+            if(!hasErrors){
+                commit("changeUserInformation", userInformationSent);
+            }
+
+            return result;
+        },
+        deleteUser({commit, state}, userIdSent){
+            let result = {};
+
+            result.errors = {};
+
+            let existingUser = state.userAccounts.find(user => user.id === userIdSent)
+
+            if(!existingUser){
+                result.errors.generalError = "User with supplied ID does not exist";
+                return result;
+            }
+
+            commit("deleteUser", userIdSent);
+
+            return result;
         }
     },
     mutations: {
         createNewUser(state, newUserObject){
             state.userAccounts.push(newUserObject);
         },
-        setActiveUser(state, newUserObject){
-            if(!newUserObject){
-                state.activeUser = { username : "Logged out", role: "loggedOut", favoriteProjects : new Set() }
+        setActiveUser(state, newUserId){
+            if(!newUserId){
+                state.activeUserId = 0
                 return;
             }
 
-            state.activeUser = newUserObject;
+            state.activeUserId = newUserId;
+        },
+        changeUserInformation(state, newUserObject){
+            for(let [index, user] of state.userAccounts.entries()){
+                if(user.id === newUserObject.id){
+                    state.userAccounts[index] = newUserObject;
+                    break;
+                }
+            }
+        },
+        deleteUser(state, userId){
+            state.userAccounts = state.userAccounts.filter(user => user.id !== userId);
         }
     },
     getters: {
-        username(state) {
-            return state.activeUser.username
+        activeUser(state){
+            if(!state.activeUserId) 
+            return {
+                "id" : 0,
+                "username" : "Logged out",
+                "password" : "",
+                "role" : "logged out (blocked)",
+                "favoriteProjects" : new Set()
+            }
+            return state.userAccounts.find(user => user.id === state.activeUserId);
         },
-        role(state) {
-            return state.activeUser.role
+        username(state, getters) {
+            return getters.activeUser.username
+        },
+        role(state, getters) {
+            return getters.activeUser.role
         },
         users(state) {
             return state.userAccounts
+        },
+        userAccounts(state, getters){
+            return getters.users.filter(user => user.id !== 0);
+        },
+        getSpecificUser: (state) => (id) => {
+            return state.userAccounts.find(user => user.id === parseInt(id));
+        },
+        userCopyWithoutPassword: (state, getters) => (id) => {
+            let copy = {...getters.getSpecificUser(id)};
+            copy.password = "" 
+            return copy;
         },
         acitveUserAccessLevel(state, getters){
             return state.userRoles[getters.role].accessLevel;

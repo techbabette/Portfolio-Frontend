@@ -38,6 +38,13 @@ export default {
                 "Access level required" : 2
             },
             {
+                "Title" : "Manage users",
+                "Route" : "/users/manage",
+                "RouteName" : "Manage users",
+                "Position" : "Hidden",
+                "Access level required" : 2
+            },
+            {
                 "Title" : "Text array test page",
                 "Route" : "/tArray",
                 "RouteName" : "Text array test page",

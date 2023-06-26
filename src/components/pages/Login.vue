@@ -8,7 +8,7 @@
         <div class="mb-3">
             <TextInput v-model="loginRequestInformation.password" type="password" label="Password"/>
         </div>
-        <div v-if="errors.loginAttemptError">{{ errors.loginAttemptError }}</div>
+        <p v-if="errors.loginError" class="alert alert-danger py-2 my-1">{{ errors.loginError }}</p>
         <button @click="attemptLogin" class="btn PrimaryButton">Attempt login</button>
 </form>
     </div>

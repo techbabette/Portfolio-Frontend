@@ -103,7 +103,7 @@ export default {
                             Field : "username"
                         },
                         {
-                            Text : "Role",
+                            Text : "Permissions",
                             Field : "role",
                             Change : function(value){
                                 return value.charAt(0).toUpperCase() + value.slice(1);
@@ -111,8 +111,24 @@ export default {
                         }
                     ],
                     Options : [
-                        {Name : "Edit", onClick : (event) => console.log(event.target), class : "btn btn-dark mx-1"},
-                        {Name : "Delete", onClick : function(){alert("Clicked a button!")}, class : "btn btn-danger"}
+                        {
+                            Name : "Edit",
+                            class : "btn btn-dark mx-1", 
+                            onClick : (event) => {
+                                let requestedId = parseInt(event.target.dataset.id)
+
+                                this.$router.push({name : "Manage users", params : {id : requestedId}})
+                            }
+                        },
+                        {
+                            Name : "Delete",
+                            class : "btn btn-danger", 
+                            onClick : (event) => {
+                                let requestedId = parseInt(event.target.dataset.id)
+
+                                this.$store.commit("deleteUser", requestedId);
+                            }
+                        }
                     ]
                 }
             ]

@@ -9,6 +9,7 @@ import RegisterPage from "./components/pages/Register.vue";
 import AdminPage from "./components/pages/Admin.vue";
 import TextArrayTestPage from "./components/pages/TextArray.vue"
 import ManageProjects from "./components/pages/ManageProjects.vue"
+import ManageUsers from "./components/pages/ManageUsers.vue"
 import Axios from "axios";
 import store from "./store/store"
 import AOS from 'aos'
@@ -29,6 +30,9 @@ const routes = [
   },
   {
     path : "/projects/manage/:id", component: ManageProjects, name : "Manage projects"
+  },
+  {
+    path : "/users/manage/:id", component: ManageUsers, name : "Manage users"
   },
   {
     path : "/login", component: LoginPage, name : "Login"
@@ -72,6 +76,7 @@ else{
 
 // Subscribe to store updates
 store.subscribe((mutation, state) => {
+  console.log(mutation);
 	localStorage.setItem('store', JSON.stringify(state));
 });
 

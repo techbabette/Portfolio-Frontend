@@ -111,7 +111,6 @@ export default {
             }
 
             if(!hasErrors){
-                console.log("here");
                 commit("changeProject", projectInformationSent);
             }
 
