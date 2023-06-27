@@ -2,7 +2,7 @@
     <div class="row SingleProject my-3 animated bounce infinite" :data-aos="SlideDirection" data-aos-delay="100"
     :class="{'flex-row-reverse' : IsOdd, 'EvenProjectBorder' : !IsOdd, 'OddProjectBorder' : IsOdd}">
         <div class="col-12 col-md-4 p-2 border-black">
-            <img :src="ProjectThumbnailImage" :alt="ProjectName" class="img-fluid">
+            <img :src="ProjectThumbnailImage" :alt="ProjectName" class="img-fluid img-round">
         </div>
         <div class="col-12 col-md-8 p-2 px-4">
             <h2 :class="{'PrimaryTextColor' : IsOdd, 'SecondaryTextColor' : !IsOdd}" role="button" @click="OpenProjectPage(ProjectId)">{{ ProjectName }}</h2>
@@ -83,7 +83,11 @@ export default {
     color: #fafafa;
     border: 1px solid black;
     transition: scale 2s; /* Animation */
-    border-radius: 2px;
+    border-radius: 20px;
+}
+.img-round{
+    padding: 20px;
+    border-radius: 8%;
 }
 .SingleProject:hover{
     scale : 1.01;
