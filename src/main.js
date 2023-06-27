@@ -6,8 +6,11 @@ import store from "./store/store"
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import AccessLevelDirective from "./directives/AccessLevelDirective.js"
+import { Icon } from '@iconify/vue2';
 
 Vue.directive("accessLevel", AccessLevelDirective);
+
+Vue.component("IconifyIcon", Icon);
 
 Vue.config.productionTip = false
 

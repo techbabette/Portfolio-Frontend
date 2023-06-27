@@ -18,21 +18,21 @@ export default {
             "username": "pera",
             "password": "sifra1",
             "role": "admin",
-            'favoriteProjects' : new Set([1,2])
+            'favoriteProjects' : []
         },
         {
             "id" : 2,
             "username": "mika",
             "password": "sifra1",
             "role": "user",
-            'favoriteProjects' : new Set()
+            'favoriteProjects' : []
         },
         {
             "id" : 3,
             "username": "zika",
             "password": "sifra1",
             "role": "user",
-            'favoriteProjects' : new Set()
+            'favoriteProjects' : []
         }
         ],
     },
@@ -93,7 +93,7 @@ export default {
 
             newUserAccount.role = "user";
 
-            newUserAccount.favoriteProjects = new Set();
+            newUserAccount.favoriteProjects = []
 
             commit("createNewUser", newUserAccount);
 
@@ -103,6 +103,17 @@ export default {
             commit("setActiveUser", 0);
 
             return true;
+        },
+        flipUserProjectFavorite({commit, getters}, projectId){
+            let activeUser = getters.activeUser
+
+            let commitInformation = {activeUser, projectId};
+
+            if(activeUser.favoriteProjects.includes(projectId)){
+                commit("RemoveFromFavoriteProjects", commitInformation);
+                return;
+            }
+            commit("AddToFavoriteProjects", commitInformation);
         },
         editUser({commit, state}, userInformationSent){
             let result = {};
@@ -192,6 +203,20 @@ export default {
         },
         deleteUser(state, userId){
             state.userAccounts = state.userAccounts.filter(user => user.id !== userId);
+        },
+        RemoveFromFavoriteProjects(state, commitInformation){
+            let user = commitInformation.activeUser;
+
+            let projectId = commitInformation.projectId;
+
+            user.favoriteProjects = user.favoriteProjects.filter(project => project != projectId);
+        },
+        AddToFavoriteProjects(state, commitInformation){
+            let user = commitInformation.activeUser;
+
+            let projectId = commitInformation.projectId;
+
+            user.favoriteProjects.push(projectId);
         }
     },
     getters: {
@@ -202,7 +227,7 @@ export default {
                 "username" : "Logged out",
                 "password" : "",
                 "role" : "logged out (blocked)",
-                "favoriteProjects" : new Set()
+                "favoriteProjects" : []
             }
             return state.userAccounts.find(user => user.id === state.activeUserId);
         },
@@ -233,7 +258,7 @@ export default {
             return getters.activeUser.favoriteProjects;
         },
         IsInUserFavorites: (state, getters) => (id) => {
-            return getters.UserFavorites.has(id);
+            return getters.UserFavorites.includes(id);
         },
         acitveUserAccessLevel(state, getters){
             return state.userRoles[getters.role].accessLevel;

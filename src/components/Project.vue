@@ -3,7 +3,9 @@
     :class="{'flex-row-reverse' : IsOdd, 'EvenProjectBorder' : !IsOdd, 'OddProjectBorder' : IsOdd}">
         <div class="col-12 col-md-4 p-2 border-black position-relative img-padding">
             <img :src="ProjectThumbnailImage" :alt="ProjectName" class="img-fluid img-round">
-            <span class="iconify SaveIcon" :class="{'SaveIconRight' : IsOdd, 'SaveIconLeft' : !IsOdd}" :data-icon="SaveIconClass"></span>
+            <div class="SaveIcon" role="button" @click="flipUserProjectFavorite" :class="{'SaveIconRight' : IsOdd, 'SaveIconLeft' : !IsOdd}" v-accessLevel="1">
+                <IconifyIcon :icon="SaveIconClass" />
+            </div>
         </div>
         <div class="col-12 col-md-8 p-2 px-4">
             <h2 class="d-inline" :class="{'PrimaryTextColor' : IsOdd, 'SecondaryTextColor' : !IsOdd}" role="button" @click="OpenProjectPage(ProjectId)">{{ ProjectName }}</h2>
@@ -69,6 +71,9 @@ export default {
         },
         OpenProjectEditPage(id){
             this.$router.push({name : "Manage projects", params : {id}})
+        },
+        flipUserProjectFavorite(){
+            this.$store.dispatch("flipUserProjectFavorite", this.ProjectId);
         }
     },
     computed : {
@@ -103,6 +108,10 @@ export default {
     font-size: 2rem;
     position: absolute;
     top: 30px;
+    transition: scale 0.5;
+}
+.SaveIcon:hover{
+    scale: 1.2;
 }
 .SaveIconRight{
     left: 30px;
