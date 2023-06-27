@@ -63,7 +63,7 @@ export default {
             this.errors = result.errors
 
             if(success){
-                this.$router.push("/admin");
+                this.$router.back();
                 return;
             }
         }

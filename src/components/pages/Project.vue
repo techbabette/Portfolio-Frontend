@@ -1,7 +1,10 @@
 <template>
     <div class="row align-items-center justify-content-center">
         <div class="col-12 col-md-6 p-4 SingleProject">
-            <h2>{{ currentProject.Name }}</h2>
+            <h2 class="d-inline">{{ currentProject.Name }}</h2>
+            <div v-accessLevel="2" class="d-inline" @click="OpenProjectEditPage(id)">
+                <span class="iconify mx-1" role="button" data-icon="lucide:edit"></span>
+            </div>
             <img :src="currentProject['Preview image link']" :alt="currentProject.name" class="img-fluid">
             <p class="my-1">{{ currentProject.Description }}</p>
             <div v-if="HasTechnologies">
@@ -25,12 +28,17 @@ export default {
             id : this.$route.params.id
         }
     },
+    methods : {
+        OpenProjectEditPage(id){
+            this.$router.push({name : "Manage projects", params : {id}})
+        }
+    },
     computed: {
         currentProject: function(){
             return this.$store.getters.getSpecificProject(this.id);
         },
         HasTechnologies : function(){
-            return this.currentProject.ProjectTechnologies && this.currentProject.ProjectTechnologies.length > 0;
+            return this.currentProject.Technologies && this.currentProject.Technologies.length > 0;
         }
     }
 }

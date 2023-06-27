@@ -1,15 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import VueRouter from "vue-router"
-import LandingPage from "./components/pages/Landing.vue";
-import ProjectsPage from "./components/pages/Projects.vue";
-import ProjectPage from "./components/pages/Project.vue";
-import LoginPage from "./components/pages/Login.vue";
-import RegisterPage from "./components/pages/Register.vue";
-import AdminPage from "./components/pages/Admin.vue";
-import TextArrayTestPage from "./components/pages/TextArray.vue"
-import ManageProjects from "./components/pages/ManageProjects.vue"
-import ManageUsers from "./components/pages/ManageUsers.vue"
+import router from "./router/router"
 import Axios from "axios";
 import store from "./store/store"
 import AOS from 'aos'
@@ -18,42 +9,7 @@ import AccessLevelDirective from "./directives/AccessLevelDirective.js"
 
 Vue.directive("accessLevel", AccessLevelDirective);
 
-const routes = [
-  {
-    path : "/", component: LandingPage, name : "Home page"
-  },
-  {
-    path : "/projects", component: ProjectsPage, name : "My projects"
-  },
-  {
-    path : "/project/:id", component: ProjectPage, name : "Project"
-  },
-  {
-    path : "/projects/manage/:id", component: ManageProjects, name : "Manage projects"
-  },
-  {
-    path : "/users/manage/:id", component: ManageUsers, name : "Manage users"
-  },
-  {
-    path : "/login", component: LoginPage, name : "Login"
-  },
-  {
-    path : "/register", component: RegisterPage, name : "Register"
-  },
-  {
-    path : "/admin", component: AdminPage, name : "Admin panel"
-  },
-  {
-    path : "/tArray", component: TextArrayTestPage, name : "Text array test page"
-  }
-]
-
 Vue.config.productionTip = false
-
-const router = new VueRouter({
-  routes
-})
-
 
 router.beforeEach(function (to, from, next) {
   let requestedPageName = to.name;
@@ -79,8 +35,6 @@ store.subscribe((mutation, state) => {
   console.log(mutation);
 	localStorage.setItem('store', JSON.stringify(state));
 });
-
-Vue.use(VueRouter);
 
 const axiosInstance = Axios.create({
   baseURL : "http://localhost:3000"

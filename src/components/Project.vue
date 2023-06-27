@@ -5,7 +5,10 @@
             <img :src="ProjectThumbnailImage" :alt="ProjectName" class="img-fluid img-round">
         </div>
         <div class="col-12 col-md-8 p-2 px-4">
-            <h2 :class="{'PrimaryTextColor' : IsOdd, 'SecondaryTextColor' : !IsOdd}" role="button" @click="OpenProjectPage(ProjectId)">{{ ProjectName }}</h2>
+            <h2 class="d-inline" :class="{'PrimaryTextColor' : IsOdd, 'SecondaryTextColor' : !IsOdd}" role="button" @click="OpenProjectPage(ProjectId)">{{ ProjectName }}</h2>
+            <div v-accessLevel="2" class="d-inline" @click="OpenProjectEditPage(ProjectId)">
+                <span class="iconify mx-1" role="button" data-icon="lucide:edit"></span>
+            </div>
             <p>{{ ProjectDescription }}</p>
             <p v-if="HasTechnologies">Technologies used:
                 <span class="btn btn-info mx-1 my-1" v-for="Technology, index in ProjectTechnologies" :key="index">{{ Technology }} </span>
@@ -62,6 +65,9 @@ export default {
     methods : {
         OpenProjectPage(id){
             this.$router.push({name : "Project", params : {id}})
+        },
+        OpenProjectEditPage(id){
+            this.$router.push({name : "Manage projects", params : {id}})
         }
     },
     computed : {
@@ -79,15 +85,15 @@ export default {
 </script>
 <style scoped>
 .SingleProject{
-    background-color: #292929; 
-    color: #fafafa;
+    background-color: #fafafa; 
+    color: #292929;
     border: 1px solid black;
     transition: scale 2s; /* Animation */
     border-radius: 20px;
 }
 .img-round{
     padding: 20px;
-    border-radius: 8%;
+    border-radius: 12%;
 }
 .SingleProject:hover{
     scale : 1.01;

@@ -78,8 +78,6 @@ export default {
                             onClick : (event) => {
                                 let requestedId = parseInt(event.target.dataset.id)
 
-                                console.log(event.target.dataset.id);
-
                                 this.$router.push({name : "Manage projects", params : {id : requestedId}})
                             }
                         },
