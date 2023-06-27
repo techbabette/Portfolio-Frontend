@@ -9,9 +9,9 @@ export default {
             state.projects.push(newProject);
         },
         changeProject(state, newProjectInformation){
-            for(let project of state.projects){
+            for(let [index, project] of state.projects.entries()){
                 if(project.Id === newProjectInformation.Id){
-                    project = newProjectInformation;
+                    state.projects[index] = newProjectInformation;
                     break;
                 }
             }
@@ -63,14 +63,25 @@ export default {
                 hasErrors = true;
             }
 
+            if(!projectInformationSent["Year of development"]){
+                result.errors.yodError = "Year of development cannot be empty";
+                hasErrors = true;
+            }
+
             if(!projectInformationSent["Github link"]){
                 result.errors.GithubLinkError = "Github link cannot be empty";
                 hasErrors = true;
             }
 
-            projectInformationSent.Id = state.projects[state.projects.length - 1].Id + 1;
+            let currentYear = new Date().getFullYear();
+
+            if(projectInformationSent["Year of development"] < 2000 || projectInformationSent["Year of development"] > currentYear){
+                result.errors.yodError = "Year of development cannot be before the year 2002 or after the current year";
+                hasErrors = true;
+            }
 
             if(!hasErrors){
+                projectInformationSent.Id = state.projects[state.projects.length - 1].Id + 1;
                 commit("addNewProject", projectInformationSent);
             }
 
@@ -107,6 +118,13 @@ export default {
 
             if(!projectInformationSent["Github link"]){
                 result.errors.GithubLinkError = "Github link cannot be empty";
+                hasErrors = true;
+            }
+
+            let currentYear = new Date().getFullYear();
+
+            if(projectInformationSent["Year of development"] < 2000 || projectInformationSent["Year of development"] > currentYear){
+                result.errors.yodError = "Year of development cannot be before the year 2002 or after the current year";
                 hasErrors = true;
             }
 

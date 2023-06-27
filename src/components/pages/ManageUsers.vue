@@ -1,8 +1,8 @@
 <template>
     <div class="row align-content-center">
-        <TextInput v-model="localUserInformation.username" :errorMessage="errors.usernameError" label="Username*"/>
-        <TextInput v-model="localUserInformation.password" :errorMessage="errors.passwordError" label="Password"/>
-        <button @click="SubmitChanges" class="btn PrimaryButton col-2">Edit user</button>
+        <TextInput v-model="localUserInformation.username" :errorMessage="errors.usernameError" label="Username*" class="my-2"/>
+        <TextInput v-model="localUserInformation.password" :errorMessage="errors.passwordError" label="Password" class="my-2"/>
+        <button @click="SubmitChanges" class="btn PrimaryButton col-2 my-2">Edit user</button>
     </div>
 </template>
 <script>

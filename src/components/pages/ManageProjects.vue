@@ -6,6 +6,7 @@
         <label class="form-label my-0" for="ProjectDescription">Description*</label>
         <textarea required="required" class="form-control" id="ProjectDescription" v-model="localProjectInformation.Description"></textarea>
         <p v-if="errors.projectDescriptionError" class="alert alert-danger py-2 my-1">{{ errors.projectDescriptionError }}</p>
+        <TextInput v-model="localProjectInformation['Year of development']" type="number" :errorMessage="errors.yodError" label="Year of development*"/>
         <TextInput v-model="localProjectInformation['Github link']" :errorMessage="errors.GithubLinkError" label="Github link*"/>
         <TextInput v-model="localProjectInformation['Hosted link']" label="Hosted link"/>
         <TextArrayInput v-model="localProjectInformation.Technologies" label="Technologies used"/>
@@ -27,6 +28,7 @@ export default {
             localProjectInformation : {
                 Name : "",
                 Description : "",
+                "Year of development" : "", 
                 "Github link" : "",
                 "Hosted link" : "",
                 "Preview image link" : "",
@@ -37,10 +39,11 @@ export default {
     },
     mounted(){
         if(this.id==="new"){
+            this.localProjectInformation["Year of development"] = new Date().getFullYear();
             return
         }
 
-        this.localProjectInformation = this.$store.getters.getSpecificProject(this.id);
+        this.localProjectInformation = {...this.$store.getters.getSpecificProject(this.id)};
     },
     computed : {
         dispatchTarget : function(){
@@ -54,11 +57,17 @@ export default {
         async SubmitChanges(e){
             e.preventDefault();
 
+            console.log("clicked")
+
             this.localProjectInformation.Technologies = this.localProjectInformation.Technologies.filter(tech => tech !== "");
 
             let result = await this.$store.dispatch(this.dispatchTarget, this.localProjectInformation);
 
+            console.log(result);
+
             let success = Object.keys(result.errors).length < 1; 
+
+            console.log(success);
 
             this.errors = result.errors
 
