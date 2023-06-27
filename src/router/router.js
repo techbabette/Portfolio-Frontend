@@ -7,7 +7,6 @@ import ProjectPage from "../components/pages/Project.vue";
 import LoginPage from "../components/pages/Login.vue";
 import RegisterPage from "../components/pages/Register.vue";
 import AdminPage from "../components/pages/Admin.vue";
-import TextArrayTestPage from "../components/pages/TextArray.vue"
 import ManageProjectsPage from "../components/pages/ManageProjects.vue"
 import ManageUsersPage from "../components/pages/ManageUsers.vue"
 
@@ -35,9 +34,6 @@ const routes = [
     },
     {
       path : "/admin", component: AdminPage, name : "Admin panel"
-    },
-    {
-      path : "/tArray", component: TextArrayTestPage, name : "Text array test page"
     }
   ]
   

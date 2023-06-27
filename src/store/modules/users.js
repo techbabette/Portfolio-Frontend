@@ -212,6 +212,9 @@ export default {
         role(state, getters) {
             return getters.activeUser.role
         },
+        getAllUserRoles(state){
+            return Object.keys(state.userRoles);
+        },
         users(state) {
             return state.userAccounts
         },

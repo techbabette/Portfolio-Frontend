@@ -19,6 +19,7 @@ router.beforeEach(function (to, from, next) {
     next();
   }
   else{
+    router.push("/");
     console.warn("You're not allowed to see the requested page");
   }
 });
