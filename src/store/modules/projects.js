@@ -29,6 +29,11 @@ export default {
         },
         getSpecificProject: (state) => (id) => {
             return state.projects.find(project => project.Id === parseInt(id));
+        },
+        getFavoriteProjectsForActiveUser(state, getters, rootState, rootGetters){
+            let FavoriteProjectIds = rootGetters.UserFavorites;
+
+            return getters.getAllProjects.filter(project => FavoriteProjectIds.includes(project.Id));
         }
     },
     actions : {

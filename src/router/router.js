@@ -3,6 +3,7 @@ import Router from 'vue-router';
 
 import LandingPage from "../components/pages/Landing.vue";
 import ProjectsPage from "../components/pages/Projects.vue";
+import FavoriteProjectsPage from "../components/pages/Favorites.vue";
 import ProjectPage from "../components/pages/Project.vue";
 import LoginPage from "../components/pages/Login.vue";
 import RegisterPage from "../components/pages/Register.vue";
@@ -16,6 +17,9 @@ const routes = [
     },
     {
       path : "/projects", component: ProjectsPage, name : "My projects"
+    },
+    {
+      path : "/projects/favorites", component: FavoriteProjectsPage, name : "Favorite projects"
     },
     {
       path : "/project/:id", component: ProjectPage, name : "Project"

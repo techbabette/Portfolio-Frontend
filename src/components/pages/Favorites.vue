@@ -1,10 +1,10 @@
 <template>
-    <ProjectList/>
+    <ProjectList ProjectListLabel="Your favorite projects" ProjectListGetter="getFavoriteProjectsForActiveUser"/>
 </template>
 <script>
 import ProjectList from "../ProjectPreviewList.vue"
 export default {
-    name : "ProjectsPage",
+    name : "FavoriteProjectsPage",
     components : {
         ProjectList
     }

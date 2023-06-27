@@ -17,6 +17,13 @@ export default {
                 "Access level required" : 0
             },
             {
+                "Title" : "Favorite projects",
+                "Route" : "/projects/favorites",
+                "RouteName" : "Favorite projects",
+                "Position" : "Navbar",
+                "Access level required" : 1
+            },
+            {
                 "Title" : "Project",
                 "Route" : "/project",
                 "RouteName" : "Project",
