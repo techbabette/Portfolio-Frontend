@@ -1,8 +1,9 @@
 <template>
     <div class="row SingleProject my-3 animated bounce infinite" :data-aos="SlideDirection" data-aos-delay="100"
     :class="{'flex-row-reverse' : IsOdd, 'EvenProjectBorder' : !IsOdd, 'OddProjectBorder' : IsOdd}">
-        <div class="col-12 col-md-4 p-2 border-black">
+        <div class="col-12 col-md-4 p-2 border-black position-relative img-padding">
             <img :src="ProjectThumbnailImage" :alt="ProjectName" class="img-fluid img-round">
+            <span class="iconify SaveIcon" data-icon="teenyicons:save-outline"></span>
         </div>
         <div class="col-12 col-md-8 p-2 px-4">
             <h2 class="d-inline" :class="{'PrimaryTextColor' : IsOdd, 'SecondaryTextColor' : !IsOdd}" role="button" @click="OpenProjectPage(ProjectId)">{{ ProjectName }}</h2>
@@ -91,9 +92,18 @@ export default {
     transition: scale 2s; /* Animation */
     border-radius: 20px;
 }
-.img-round{
+.SaveIcon{
+    color: white;
+    font-size: 2rem;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+}
+.img-padding{
     padding: 20px;
-    border-radius: 12%;
+}
+.img-round{
+    border-radius: 8%;
 }
 .SingleProject:hover{
     scale : 1.01;

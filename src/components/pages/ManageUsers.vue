@@ -8,7 +8,8 @@
             <option v-for="userRole, index in allRolesAvailable" :key="index" :value="userRole">{{ makeUpperCase(userRole) }}</option>
             </select>
         </div>
-        <button @click="SubmitChanges" class="btn PrimaryButton col-2 my-2">Edit user</button>
+        <button @click="SubmitChanges" class="btn PrimaryButton col-2 mx-2 my-2">Edit user</button>
+        <button @click="GoBack" class="btn AccentButton col-2 mx-2 my-2">Back</button>
     </div>
 </template>
 <script>
@@ -51,6 +52,11 @@ export default {
                 this.$router.push("/admin");
                 return;
             }
+        },
+        GoBack(e){
+            e.preventDefault();
+
+            this.$router.back();
         },
         makeUpperCase(string){
             return string.charAt(0).toUpperCase() + string.slice(1);

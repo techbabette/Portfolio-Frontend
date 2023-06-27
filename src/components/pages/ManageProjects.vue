@@ -10,7 +10,8 @@
         <TextInput v-model="localProjectInformation['Github link']" :errorMessage="errors.GithubLinkError" label="Github link*"/>
         <TextInput v-model="localProjectInformation['Hosted link']" label="Hosted link"/>
         <TextArrayInput v-model="localProjectInformation.Technologies" label="Technologies used"/>
-        <button @click="SubmitChanges" class="btn PrimaryButton col-2">{{ SubmitButtonText }}</button>
+        <button @click="SubmitChanges" class="btn PrimaryButton col-2 mx-2 my-2">{{ SubmitButtonText }}</button>
+        <button @click="GoBack" class="btn AccentButton col-2 mx-2 my-2">Back</button>
     </div>
 </template>
 <script>
@@ -75,7 +76,12 @@ export default {
                 this.$router.back();
                 return;
             }
-        }
+        },
+        GoBack(e){
+            e.preventDefault();
+
+            this.$router.back();
+        },
     }
 }
 </script>
