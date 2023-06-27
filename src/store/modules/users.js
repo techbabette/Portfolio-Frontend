@@ -18,7 +18,7 @@ export default {
             "username": "pera",
             "password": "sifra1",
             "role": "admin",
-            'favoriteProjects' : new Set()
+            'favoriteProjects' : new Set([1,2])
         },
         {
             "id" : 2,
@@ -228,6 +228,12 @@ export default {
             let copy = {...getters.getSpecificUser(id)};
             copy.password = "" 
             return copy;
+        },
+        UserFavorites(state, getters) {
+            return getters.activeUser.favoriteProjects;
+        },
+        IsInUserFavorites: (state, getters) => (id) => {
+            return getters.UserFavorites.has(id);
         },
         acitveUserAccessLevel(state, getters){
             return state.userRoles[getters.role].accessLevel;

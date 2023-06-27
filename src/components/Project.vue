@@ -3,7 +3,7 @@
     :class="{'flex-row-reverse' : IsOdd, 'EvenProjectBorder' : !IsOdd, 'OddProjectBorder' : IsOdd}">
         <div class="col-12 col-md-4 p-2 border-black position-relative img-padding">
             <img :src="ProjectThumbnailImage" :alt="ProjectName" class="img-fluid img-round">
-            <span class="iconify SaveIcon" data-icon="teenyicons:save-outline"></span>
+            <span class="iconify SaveIcon" :class="{'SaveIconRight' : IsOdd, 'SaveIconLeft' : !IsOdd}" :data-icon="SaveIconClass"></span>
         </div>
         <div class="col-12 col-md-8 p-2 px-4">
             <h2 class="d-inline" :class="{'PrimaryTextColor' : IsOdd, 'SecondaryTextColor' : !IsOdd}" role="button" @click="OpenProjectPage(ProjectId)">{{ ProjectName }}</h2>
@@ -80,7 +80,13 @@ export default {
         },
         HasTechnologies : function(){
             return this.ProjectTechnologies && this.ProjectTechnologies.length > 0;
-        }
+        },
+        IsInUserFavorites : function(){
+            return this.$store.getters.IsInUserFavorites(this.ProjectId);
+        },
+        SaveIconClass : function(){
+            return this.IsInUserFavorites ? "teenyicons:save-solid" : "teenyicons:save-outline"
+        } 
     }
 }
 </script>
@@ -97,6 +103,11 @@ export default {
     font-size: 2rem;
     position: absolute;
     top: 30px;
+}
+.SaveIconRight{
+    left: 30px;
+}
+.SaveIconLeft{
     right: 30px;
 }
 .img-padding{
