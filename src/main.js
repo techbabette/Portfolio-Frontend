@@ -41,7 +41,7 @@ store.subscribe((mutation, state) => {
 });
 
 const axiosInstance = Axios.create({
-  baseURL : "http://localhost:3000"
+  baseURL : "http://16.171.7.176:3000"
 })
 
 Vue.prototype.$axios = axiosInstance;

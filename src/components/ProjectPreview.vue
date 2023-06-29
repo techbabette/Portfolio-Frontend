@@ -19,7 +19,7 @@
             <p>Made in {{ ProjectYearOfDevelopment }}</p>
             <p>
                 <a class="btn" :class="{'AccentButton' : !IsOdd, 'PrimaryButton': IsOdd}" :href="ProjectRepositoryLink">Github Link</a>
-                <a class="mx-2 btn SecondaryButton" v-if="ProjectDemoLink" :href="ProjectDemoLink">Live demo</a>
+                <a class="mx-md-2 btn SecondaryButton" v-if="ProjectDemoLink" :href="ProjectDemoLink">Live demo</a>
             </p>
         </div>
     </div>
