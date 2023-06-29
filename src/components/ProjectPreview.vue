@@ -135,14 +135,15 @@ export default {
     border: 2px solid #ff8f94;
 }
 @media only screen and (min-width: 992px) {
-    
+
     .SaveIcon{
         font-size: 2rem;
     }
-    .SaveIconLeft{
+    .SaveIconRight{
         left: 30px;
     }
     .SaveIconLeft{
+        left:auto;
         right: 30px;
     }
 }
