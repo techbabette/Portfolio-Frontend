@@ -39,7 +39,7 @@ export default {
     actions : {
         async getProjectsFromApi({commit}){
             try{
-                let response = await axios.get("http://16.171.7.176:3000/projects");
+                let response = await axios.get("https://zxcwmbjxzc.execute-api.eu-north-1.amazonaws.com/projects");
                 commit("setProjects", response.data);
             }
             catch(err){

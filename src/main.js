@@ -41,7 +41,7 @@ store.subscribe((mutation, state) => {
 });
 
 const axiosInstance = Axios.create({
-  baseURL : "http://16.171.7.176:3000"
+  baseURL : "https://zxcwmbjxzc.execute-api.eu-north-1.amazonaws.com/"
 })
 
 Vue.prototype.$axios = axiosInstance;

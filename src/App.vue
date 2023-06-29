@@ -1,8 +1,8 @@
 <template>
   <div class="min-vh-100" id="app">
-    <Navbar class="NavHeight px-5"/>
-    <router-view class="ViewHeight px-5"></router-view>
-    <Footer class="FooterHeight px-5"/>
+    <Navbar class="NavHeight px-4"/>
+    <router-view class="ViewHeight px-4"></router-view>
+    <Footer class="FooterHeight px-4"/>
   </div>
 </template>
 

@@ -48,5 +48,11 @@ export default {
     border: 1px solid black;
     border-radius: 10px;
     background-color: #292929;
+    margin: 15px 0;
+}
+@media only screen and (min-width: 992px) {
+    .ProjectBorder{
+        margin: 10px 0;
+    }
 }
 </style>

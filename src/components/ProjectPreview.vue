@@ -105,19 +105,19 @@ export default {
 }
 .SaveIcon{
     color: white;
-    font-size: 2rem;
+    font-size: 1.5rem;
     position: absolute;
-    top: 30px;
+    top: 20px;
     transition: scale 0.5;
 }
 .SaveIcon:hover{
     scale: 1.2;
 }
 .SaveIconRight{
-    left: 30px;
+    left: 20px;
 }
 .SaveIconLeft{
-    right: 30px;
+    left: 20px;
 }
 .img-padding{
     padding: 20px;
@@ -133,5 +133,17 @@ export default {
 }
 .EvenProjectBorder{
     border: 2px solid #ff8f94;
+}
+@media only screen and (min-width: 992px) {
+    
+    .SaveIcon{
+        font-size: 2rem;
+    }
+    .SaveIconLeft{
+        left: 30px;
+    }
+    .SaveIconLeft{
+        right: 30px;
+    }
 }
 </style>
