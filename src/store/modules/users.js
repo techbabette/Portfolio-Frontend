@@ -44,7 +44,11 @@ export default {
 
             let attemptedUsername = loginInformationSent.username;
 
+            console.log(attemptedUsername);
+
             let attemptedAccount = state.userAccounts.find(userAccount => userAccount.username === attemptedUsername) ?? null;
+
+            console.log(attemptedAccount);
 
             if(!attemptedAccount) {
                 result.errors.loginError = "Invalid username/password";
@@ -63,6 +67,8 @@ export default {
                 return result;
             }
 
+            console.log(attemptedAccount);
+
             commit("setActiveUser", attemptedAccount.id);
 
             console.log(result);
@@ -80,7 +86,7 @@ export default {
             }
 
             if(registrationInformationSent.username.length < 4){
-                result.errors.passwordError = "Username cannot be shorter than six characters"
+                result.errors.passwordError = "Username cannot be shorter than four characters"
                 return result;
             }
 
@@ -90,6 +96,8 @@ export default {
             }
 
             let newUserAccount = JSON.parse(JSON.stringify(registrationInformationSent));
+
+            newUserAccount.id = state.userAccounts[state.userAccounts.length - 1].id + 1;
 
             newUserAccount.role = "user";
 
@@ -131,8 +139,8 @@ export default {
                 hasErrors = true;
             }
 
-            if(!userInformationSent.username){
-                result.errors.usernameError = "Username cannot be shorter than six characters";
+            if(!userInformationSent.username || userInformationSent.username.length < 4){
+                result.errors.usernameError = "Username cannot be shorter than four characters";
                 hasErrors = true;
             }
 
