@@ -1,6 +1,9 @@
 <template>
     <div>
         <h1>{{ ProjectListLabel }}</h1>
+        <div class="row" v-if="ShowSearchElements">
+            <TextInput class="col-12 col-md-2" v-model="KeywordSearch" label="Search keyword"/>
+        </div>
         <div v-if="HasProjects" class="ProjectBorder">
         <ProjectPreview v-for="Project,index in Projects" :key = "index" 
         :ProjectId="Project.Id" :ProjectYearOfDevelopment="Project['Year of development']"
@@ -13,10 +16,12 @@
 </template>
 <script>
 import ProjectPreview from "./ProjectPreview.vue"
+import TextInput from "./inputs/Text.vue"
 export default {
     name : "FavoriteProjectsPage",
     components : {
-        ProjectPreview
+        ProjectPreview,
+        TextInput
     },
     props : {
         ProjectListLabel : {
@@ -27,9 +32,9 @@ export default {
             Type : Boolean,
             default : true
         },
-        ProjectListGetter : {
-            Type : String,
-            default : "getAllProjects"
+        FavoritesOnly : {
+            Type : Boolean,
+            default : false
         }
     },
     computed : {
@@ -38,7 +43,24 @@ export default {
         },
         HasProjects : function(){
             return this.Projects && this.Projects.length > 0;
+        },
+        ProjectSearchState : function(){
+            return this.FavoritesOnly ? "favoriteSearchParams" : "searchParams"
+        },
+        ProjectListGetter : function(){
+            return this.ShowSearchElements ? "getProjectsForPreviewList" : "getAllProjects"
+        },
+        KeywordSearch : {
+            get () { 
+                return this.$store.state.projects[this.ProjectSearchState].SearchText;
+            },
+            set (value) {
+                this.$store.state.projects[this.ProjectSearchState].SearchText = value;
+            }
         }
+    },
+    mounted(){
+        this.$store.state.projects.favoriteOnly = this.FavoritesOnly;
     }
 }
 </script>

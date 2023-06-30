@@ -12,9 +12,10 @@ export default {
         favoriteSearchParams : {
             SearchText : "",
             AcceptedYears : [],
-            AcceptedTechnologies : ["Javascript"],
+            AcceptedTechnologies : [],
             SortBy : 3
         },
+        favoriteOnly : true,
         sortOptions : [
             {
                 id : 1,
@@ -174,8 +175,14 @@ export default {
         }
     },
     getters: {
-        getAllProjects(state){
+        getAllProjects(state, getters){
+            if(!state.favoriteOnly)
             return state.projects;
+
+            return getters.getFavoriteProjects(state.projects)
+        },
+        getProjectSearchState(state){
+            return state.favoriteOnly ? "favoriteSearchParams" : "searchParams"
         },
         getSpecificProject: (state) => (id) => {
             return state.projects.find(project => project.Id === parseInt(id));
@@ -183,30 +190,34 @@ export default {
         getFilteredProjects(state, getters){
             let projectsToFilter = getters.getAllProjects;
 
-            if(state.searchParams.SearchText){
+            let stateToUse = getters.getProjectSearchState
+
+            if(state[stateToUse].SearchText){
                 projectsToFilter = projectsToFilter.
                 filter(project => 
-                    project.Name.includes(state.searchParams.SearchText) ||
-                    project.Technologies.some(tech => tech === state.searchParams.SearchText)
+                    project.Name.toLowerCase().includes(state[stateToUse].SearchText.toLowerCase()) ||
+                    project.Technologies.some(tech => tech === state[stateToUse].SearchText)
                 );
             }
 
-            if(state.searchParams.AcceptedTechnologies.length > 0){
+            if(state[stateToUse].AcceptedTechnologies.length > 0){
                 projectsToFilter = projectsToFilter.filter(project => 
-                    project.Technologies.some(tech => state.searchParams.AcceptedTechnologies.includes(tech))
+                    project.Technologies.some(tech => state[stateToUse].AcceptedTechnologies.includes(tech))
                 );
             }
 
-            if(state.searchParams.AcceptedYears.length > 0){
-                projectsToFilter = projectsToFilter.filter(project => state.searchParams.AcceptedYears.includes(project['Year of development']));
+            if(state[stateToUse].AcceptedYears.length > 0){
+                projectsToFilter = projectsToFilter.filter(project => state[stateToUse].AcceptedYears.includes(project['Year of development']));
             }
 
             return projectsToFilter
         },
-        getSortedProjects : (state) => (projects) => {
+        getSortedProjects : (state, getters) => (projects) => {
             let projectsToSort = projects;
 
-            let sortBy = state.searchParams.SortBy;
+            let stateToUse = getters.getProjectSearchState
+
+            let sortBy = state[stateToUse].SortBy;
 
             if(sortBy === 1){
                 return projectsToSort.sort((a, b) => {return b["Year of development"] - a["Year of development"]})
@@ -227,6 +238,8 @@ export default {
             return projectsToSort;
         },
         getFavoriteProjects : (state, getters, rootState, rootGetters) => (projects) => {
+            if(!state.favoriteOnly) return projects;
+
             let FavoriteProjectIds = rootGetters.UserFavorites;
 
             return projects.filter(project => FavoriteProjectIds.includes(project.Id))
@@ -253,18 +266,12 @@ export default {
         getAllTechnologies(state, getters) {
             return getters.getTechnologiesOfProjects(getters.getAllProjects)
         },
-        getYearsOfFavoriteProjects(state, getters){
-            return getters.getYearsOfProjects(getters.getSortedFilteredFavoriteProjects)
-        },
-        getTechnologiesOfFavoriteProjects(state, getters){
-            return getters.getTechnologiesOfProjectsx(getters.getSortedFilteredFavoriteProjects)
-        },
         getSortedFilteredProjects(state, getters){
             let projectsToSort = getters.getFilteredProjects;
 
             return getters.getSortedProjects(projectsToSort);
         },
-        getSortedFilteredFavoriteProjects(state, getters){
+        getProjectsForPreviewList(state, getters){
             return getters.getFavoriteProjects(getters.getSortedFilteredProjects)
         }
     }

@@ -1,5 +1,5 @@
 <template>
-    <ProjectList ProjectListGetter="getSortedFilteredProjects"/>
+    <ProjectList/>
 </template>
 <script>
 import ProjectList from "../ProjectPreviewList.vue"
