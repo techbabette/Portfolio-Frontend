@@ -3,18 +3,9 @@ import axios from "axios"
 export default {
     state: {
         projects : [],
-        searchParams : {
-            SearchText : "",
-            AcceptedYears : [],
-            AcceptedTechnologies : [],
-            SortBy : 3
-        },
-        favoriteSearchParams : {
-            SearchText : "",
-            AcceptedYears : [],
-            AcceptedTechnologies : [],
-            SortBy : 3
-        },
+        //Each key in this object represents search params for a single page
+        activePage : "",
+        searchParamsForEachPage :{},
         favoriteOnly : true,
         sortOptions : [
             {
@@ -176,13 +167,14 @@ export default {
     },
     getters: {
         getAllProjects(state, getters){
-            if(!state.favoriteOnly)
+            let favorites = state.searchParamsForEachPage[getters.getProjectSearchState].FavoritesOnly
+            if(!favorites)
             return state.projects;
 
             return getters.getFavoriteProjects(state.projects)
         },
         getProjectSearchState(state){
-            return state.favoriteOnly ? "favoriteSearchParams" : "searchParams"
+            return state.activePage;
         },
         getSpecificProject: (state) => (id) => {
             return state.projects.find(project => project.Id === parseInt(id));
@@ -192,22 +184,22 @@ export default {
 
             let stateToUse = getters.getProjectSearchState
 
-            if(state[stateToUse].SearchText){
+            if(state.searchParamsForEachPage[stateToUse].SearchText){
                 projectsToFilter = projectsToFilter.
                 filter(project => 
-                    project.Name.toLowerCase().includes(state[stateToUse].SearchText.toLowerCase()) ||
-                    project.Technologies.some(tech => tech === state[stateToUse].SearchText)
+                    project.Name.toLowerCase().includes(state.searchParamsForEachPage[stateToUse].SearchText.toLowerCase()) ||
+                    project.Technologies.some(tech => tech === state.searchParamsForEachPage[stateToUse].SearchText)
                 );
             }
 
-            if(state[stateToUse].AcceptedTechnologies.length > 0){
+            if(state.searchParamsForEachPage[stateToUse].AcceptedTechnologies.length > 0){
                 projectsToFilter = projectsToFilter.filter(project => 
-                    project.Technologies.some(tech => state[stateToUse].AcceptedTechnologies.includes(tech))
+                    project.Technologies.some(tech => state.searchParamsForEachPage[stateToUse].AcceptedTechnologies.includes(tech))
                 );
             }
 
-            if(state[stateToUse].AcceptedYears.length > 0){
-                projectsToFilter = projectsToFilter.filter(project => state[stateToUse].AcceptedYears.includes(project['Year of development']));
+            if(state.searchParamsForEachPage[stateToUse].AcceptedYears.length > 0){
+                projectsToFilter = projectsToFilter.filter(project => state.searchParamsForEachPage[stateToUse].AcceptedYears.includes(project['Year of development']));
             }
 
             return projectsToFilter
@@ -217,7 +209,7 @@ export default {
 
             let stateToUse = getters.getProjectSearchState
 
-            let sortBy = state[stateToUse].SortBy;
+            let sortBy = state.searchParamsForEachPage[stateToUse].SortBy;
 
             if(sortBy === 1){
                 return projectsToSort.sort((a, b) => {return b["Year of development"] - a["Year of development"]})
@@ -238,7 +230,7 @@ export default {
             return projectsToSort;
         },
         getFavoriteProjects : (state, getters, rootState, rootGetters) => (projects) => {
-            if(!state.favoriteOnly) return projects;
+            if(!state.searchParamsForEachPage[getters.getProjectSearchState].FavoritesOnly) return projects;
 
             let FavoriteProjectIds = rootGetters.UserFavorites;
 

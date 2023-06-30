@@ -1,7 +1,8 @@
 <template>
     <ProjectList 
     ProjectListLabel="Your favorite projects" 
-    :FavoritesOnly=true />
+    :FavoritesOnly=true
+    PageIdentifier="Favorite projects" />
 </template>
 <script>
 import ProjectList from "../ProjectPreviewList.vue"

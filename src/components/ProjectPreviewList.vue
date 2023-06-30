@@ -32,6 +32,10 @@ export default {
             Type : Boolean,
             default : true
         },
+        PageIdentifier : {
+            Type : String,
+            default : "Default page"
+        },
         FavoritesOnly : {
             Type : Boolean,
             default : false
@@ -44,23 +48,50 @@ export default {
         HasProjects : function(){
             return this.Projects && this.Projects.length > 0;
         },
-        ProjectSearchState : function(){
-            return this.FavoritesOnly ? "favoriteSearchParams" : "searchParams"
-        },
         ProjectListGetter : function(){
             return this.ShowSearchElements ? "getProjectsForPreviewList" : "getAllProjects"
         },
         KeywordSearch : {
             get () { 
-                return this.$store.state.projects[this.ProjectSearchState].SearchText;
+                return this.$store.state.projects.searchParamsForEachPage[this.PageIdentifier].SearchText;
             },
             set (value) {
-                this.$store.state.projects[this.ProjectSearchState].SearchText = value;
+                this.$store.state.projects.searchParamsForEachPage[this.PageIdentifier].SearchText = value;
             }
         }
     },
-    mounted(){
-        this.$store.state.projects.favoriteOnly = this.FavoritesOnly;
+    beforeMount(){
+        if(!this.ShowSearchElements){
+            this.$store.state.projects.searchParamsForEachPage[this.PageIdentifier] = 
+            {
+                SearchText : "",
+                AcceptedYears : [],
+                AcceptedTechnologies : [],
+                SortBy : 3,
+                FavoritesOnly : this.FavoritesOnly
+            }
+            this.$store.state.projects.activePage = this.PageIdentifier
+
+            return
+        }
+
+        let searchParamsAlreadyExist = this.PageIdentifier in this.$store.state.projects.searchParamsForEachPage
+
+        if(this.ShowSearchElements && searchParamsAlreadyExist){
+            this.$store.state.projects.activePage = this.PageIdentifier
+
+            return
+        }
+
+        this.$store.state.projects.searchParamsForEachPage[this.PageIdentifier] = 
+            {
+                SearchText : "",
+                AcceptedYears : [],
+                AcceptedTechnologies : [],
+                SortBy : 3,
+                FavoritesOnly : this.FavoritesOnly
+            }
+            this.$store.state.projects.activePage = this.PageIdentifier
     }
 }
 </script>

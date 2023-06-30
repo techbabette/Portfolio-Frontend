@@ -1,5 +1,5 @@
 <template>
-    <ProjectList/>
+    <ProjectList PageIdentifier="Projects page"/>
 </template>
 <script>
 import ProjectList from "../ProjectPreviewList.vue"
