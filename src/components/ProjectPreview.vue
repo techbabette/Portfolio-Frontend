@@ -123,7 +123,7 @@ export default {
     padding: 20px;
 }
 .img-round{
-    border-radius: 8%;
+    border-radius: 20px;
 }
 .SingleProject:hover{
     scale : 1.01;
