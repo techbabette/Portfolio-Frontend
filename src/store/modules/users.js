@@ -44,11 +44,7 @@ export default {
 
             let attemptedUsername = loginInformationSent.username;
 
-            console.log(attemptedUsername);
-
             let attemptedAccount = state.userAccounts.find(userAccount => userAccount.username === attemptedUsername) ?? null;
-
-            console.log(attemptedAccount);
 
             if(!attemptedAccount) {
                 result.errors.loginError = "Invalid username/password";
@@ -67,11 +63,7 @@ export default {
                 return result;
             }
 
-            console.log(attemptedAccount);
-
             commit("setActiveUser", attemptedAccount.id);
-
-            console.log(result);
 
             return result;
         },

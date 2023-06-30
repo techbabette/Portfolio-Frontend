@@ -2,39 +2,37 @@ import axios from "axios"
 
 export default {
     state: {
-        projects : []
-    },
-    mutations : {
-        addNewProject(state, newProject){
-            state.projects.push(newProject);
+        projects : [],
+        searchParams : {
+            SearchText : "",
+            AcceptedYears : [],
+            AcceptedTechnologies : [],
+            SortBy : 3
         },
-        changeProject(state, newProjectInformation){
-            for(let [index, project] of state.projects.entries()){
-                if(project.Id === newProjectInformation.Id){
-                    state.projects[index] = newProjectInformation;
-                    break;
-                }
+        favoriteSearchParams : {
+            SearchText : "",
+            AcceptedYears : [],
+            AcceptedTechnologies : ["Javascript"],
+            SortBy : 3
+        },
+        sortOptions : [
+            {
+                id : 1,
+                text : "Year (Newest first)"
+            },
+            {
+                id : 2,
+                text : "Year (Oldest first)"
+            },
+            {
+                id : 3,
+                text : "Number of technologies used (Highest first)"
+            },
+            {
+                id : 4,
+                text : "Number of technologies used (Lowest first)"
             }
-        },
-        deleteProject(state, projectId){
-            state.projects = state.projects.filter(project => project.Id !== projectId);
-        },
-        setProjects(state, newArrayOfProjects){
-            state.projects = newArrayOfProjects;
-        }
-    },
-    getters: {
-        getAllProjects(state){
-            return state.projects;
-        },
-        getSpecificProject: (state) => (id) => {
-            return state.projects.find(project => project.Id === parseInt(id));
-        },
-        getFavoriteProjectsForActiveUser(state, getters, rootState, rootGetters){
-            let FavoriteProjectIds = rootGetters.UserFavorites;
-
-            return getters.getAllProjects.filter(project => FavoriteProjectIds.includes(project.Id));
-        }
+        ]
     },
     actions : {
         async getProjectsFromApi({commit}){
@@ -154,6 +152,120 @@ export default {
             commit("deleteProject", projectIdSent);
 
             return result;
+        }
+    },
+    mutations : {
+        addNewProject(state, newProject){
+            state.projects.push(newProject);
+        },
+        changeProject(state, newProjectInformation){
+            for(let [index, project] of state.projects.entries()){
+                if(project.Id === newProjectInformation.Id){
+                    state.projects[index] = newProjectInformation;
+                    break;
+                }
+            }
+        },
+        deleteProject(state, projectId){
+            state.projects = state.projects.filter(project => project.Id !== projectId);
+        },
+        setProjects(state, newArrayOfProjects){
+            state.projects = newArrayOfProjects;
+        }
+    },
+    getters: {
+        getAllProjects(state){
+            return state.projects;
+        },
+        getSpecificProject: (state) => (id) => {
+            return state.projects.find(project => project.Id === parseInt(id));
+        },
+        getFilteredProjects(state, getters){
+            let projectsToFilter = getters.getAllProjects;
+
+            if(state.searchParams.SearchText){
+                projectsToFilter = projectsToFilter.
+                filter(project => 
+                    project.Name.includes(state.searchParams.SearchText) ||
+                    project.Technologies.some(tech => tech === state.searchParams.SearchText)
+                );
+            }
+
+            if(state.searchParams.AcceptedTechnologies.length > 0){
+                projectsToFilter = projectsToFilter.filter(project => 
+                    project.Technologies.some(tech => state.searchParams.AcceptedTechnologies.includes(tech))
+                );
+            }
+
+            if(state.searchParams.AcceptedYears.length > 0){
+                projectsToFilter = projectsToFilter.filter(project => state.searchParams.AcceptedYears.includes(project['Year of development']));
+            }
+
+            return projectsToFilter
+        },
+        getSortedProjects : (state) => (projects) => {
+            let projectsToSort = projects;
+
+            let sortBy = state.searchParams.SortBy;
+
+            if(sortBy === 1){
+                return projectsToSort.sort((a, b) => {return b["Year of development"] - a["Year of development"]})
+            }
+
+            if(sortBy === 2){
+                return projectsToSort.sort((a, b) => {return a["Year of development"] - b["Year of development"]})
+            }
+
+            if(sortBy === 3){
+                return projectsToSort.sort((a, b) => {return b.Technologies.length > a.Technologies.length})
+            }
+
+            if(sortBy === 4){
+                return projectsToSort.sort((a, b) => {return a.Technologies.length > b.Technologies.length})
+            }
+
+            return projectsToSort;
+        },
+        getFavoriteProjects : (state, getters, rootState, rootGetters) => (projects) => {
+            let FavoriteProjectIds = rootGetters.UserFavorites;
+
+            return projects.filter(project => FavoriteProjectIds.includes(project.Id))
+        },
+        getYearsOfProjects : () => (projects) => {
+            return projects.map(project => {return project["Year of development"]});
+        },
+        getTechnologiesOfProjects : () => (projects) => {
+            let technologies = []
+
+            for(let project of projects){
+                for(let tech of project.Technologies){
+                    if(!technologies.includes(tech)){
+                        technologies.push(tech)
+                    }
+                }
+            }
+
+            return technologies;
+        },
+        getAllYears(state, getters) {
+            return getters.getYearsOfProjects(getters.getAllProjects)
+        },
+        getAllTechnologies(state, getters) {
+            return getters.getTechnologiesOfProjects(getters.getAllProjects)
+        },
+        getYearsOfFavoriteProjects(state, getters){
+            return getters.getYearsOfProjects(getters.getSortedFilteredFavoriteProjects)
+        },
+        getTechnologiesOfFavoriteProjects(state, getters){
+            return getters.getTechnologiesOfProjectsx(getters.getSortedFilteredFavoriteProjects)
+        },
+        getSortedFilteredProjects(state, getters){
+            let projectsToSort = getters.getFilteredProjects;
+
+            return getters.getSortedProjects(projectsToSort);
+        },
+        getSortedFilteredFavoriteProjects(state, getters){
+            return getters.getFavoriteProjects(getters.getSortedFilteredProjects)
         }
     }
 }
