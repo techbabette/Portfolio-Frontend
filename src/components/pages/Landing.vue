@@ -25,7 +25,7 @@ export default {
 }
 .landing-cover{
     background-color: #FFF;
-    border: 2px solid #ff8f94;
+    border: 2px solid #8fb4ff;
     border-radius: 20px;
     color: #292929;
 }
