@@ -72,18 +72,56 @@ export default {
 
             result.errors = {};
 
+            if(registrationInformationSent.username.length < 4){
+                result.errors.usernameError = "Username cannot be shorter than four characters"
+                return result;
+            }
+
+            let usernameLetterRegex = /[A-Za-z]/ 
+            let usernameTotalRegex = /^[A-Za-z0-9]{4,15}$/
+
+            if(!usernameLetterRegex.test(registrationInformationSent.username)){
+                result.errors.usernameError = "Username must contain at least a single letter"
+                return result;
+            }
+            
+            if(!usernameTotalRegex.test(registrationInformationSent.username)){
+                result.errors.usernameError = "Username must be between four and fifteen characters long and can only include letters and numbers"
+                return result;
+            }
+
             if(state.userAccounts.some(account => account.username == registrationInformationSent.username)){
                 result.errors.usernameError = "Account with this username already exists"
                 return result;
             }
 
-            if(registrationInformationSent.username.length < 4){
-                result.errors.passwordError = "Username cannot be shorter than four characters"
+            if(registrationInformationSent.password.length < 6){
+                result.errors.passwordError = "Password cannot be shorter than six characters"
                 return result;
             }
 
-            if(registrationInformationSent.password.length < 6){
-                result.errors.passwordError = "Password cannot be shorter than six characters"
+            let passwordNumberRegex = /[0-9]/;
+            let passwordLowercaseRegex = /[a-z]/;
+            let passwordUppercaseRegex = /[A-Z]/;
+            let passwordTotalRegex = /^[A-Za-z0-9]{6,30}$/
+
+            if(!passwordNumberRegex.test(registrationInformationSent.password)){
+                result.errors.passwordError = "Password must contain at least one number"
+                return result;
+            }
+
+            if(!passwordLowercaseRegex.test(registrationInformationSent.password)){
+                result.errors.passwordError = "Password must contain at least one lowercase letter"
+                return result;
+            }
+
+            if(!passwordUppercaseRegex.test(registrationInformationSent.password)){
+                result.errors.passwordError = "Password must contain at least one uppercase letter"
+                return result;
+            }
+
+            if(!passwordTotalRegex.test(registrationInformationSent.password)){
+                result.errors.passwordError = "Password must be between six and thirty characters and can only include letters and numbers"
                 return result;
             }
 
@@ -136,6 +174,19 @@ export default {
                 hasErrors = true;
             }
 
+            let usernameLetterRegex = /[A-Za-z]/ 
+            let usernameTotalRegex = /^[A-Za-z0-9]{4,15}$/
+
+            if(!usernameLetterRegex.test(userInformationSent.username)){
+                result.errors.usernameError = "Username must contain at least a single letter"
+                hasErrors = true;
+            }
+            
+            if(!usernameTotalRegex.test(userInformationSent.username)){
+                result.errors.usernameError = "Username must be between four and fifteen characters long and can only include letters and numbers"
+                hasErrors = true;
+            }
+
             if(!userInformationSent.role){
                 result.errors.roleError = "User role cannot be empty";
                 hasErrors = true;
@@ -145,13 +196,41 @@ export default {
                 changingPassword = true;
             }
 
-            if(changingPassword && userInformationSent.password.length < 6){
-                result.errors.passwordError = "Password cannot be shorter than six characters";
-                hasErrors = true;
-            }
-
             if(changingPassword){
-                existingUser.password = userInformationSent.password;
+                let passwordNumberRegex = /[0-9]/;
+                let passwordLowercaseRegex = /[a-z]/;
+                let passwordUppercaseRegex = /[A-Z]/;
+                let passwordTotalRegex = /^[A-Za-z0-9]{6,30}$/
+    
+                
+                if(userInformationSent.password.length < 6){
+                    result.errors.passwordError = "Password cannot be shorter than six characters";
+                    hasErrors = true;
+                }
+
+                if(!passwordNumberRegex.test(userInformationSent.password)){
+                    result.errors.passwordError = "Password must contain at least one number"
+                    hasErrors = true;
+                }
+    
+                if(!passwordLowercaseRegex.test(userInformationSent.password)){
+                    result.errors.passwordError = "Password must contain at least one lowercase letter"
+                    hasErrors = true;
+                }
+    
+                if(!passwordUppercaseRegex.test(userInformationSent.password)){
+                    result.errors.passwordError = "Password must contain at least one uppercase letter"
+                    hasErrors = true;
+                }
+    
+                if(!passwordTotalRegex.test(userInformationSent.password)){
+                    result.errors.passwordError = "Password must be between six and thirty characters and can only include letters and numbers"
+                    hasErrors = true;
+                }
+    
+                if(changingPassword){
+                    existingUser.password = userInformationSent.password;
+                }
             }
 
             existingUser.username = userInformationSent.username;

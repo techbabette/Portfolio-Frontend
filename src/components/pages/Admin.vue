@@ -28,7 +28,7 @@ export default {
             AdminTabs : [
                 {
                     Title : "Projects",
-                    ItemGetter : "getAllProjects",
+                    ItemGetter : "getProjectsForAdminPanel",
                     IdentificationField : "Id",
                     Headers : [
                         {

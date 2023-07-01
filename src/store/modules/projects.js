@@ -166,6 +166,9 @@ export default {
         }
     },
     getters: {
+        getProjectsForAdminPanel(state){
+          return state.projects; 
+        },
         getAllProjects(state, getters){
             let favorites = state.searchParamsForEachPage[getters.getProjectSearchState].FavoritesOnly
             if(!favorites)
