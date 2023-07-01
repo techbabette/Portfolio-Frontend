@@ -81,7 +81,7 @@ export default {
             let currentTechnologiesFilter = this.$store.state.projects.searchParamsForEachPage[currentParams].AcceptedTechnologies;
 
             if(currentTechnologiesFilter.includes(tech)){
-                this.$store.state.projects.searchParamsForEachPage[currentParams].AcceptedTechnologies = currentTechnologiesFilter.filter(tech => tech !== tech);
+                this.$store.state.projects.searchParamsForEachPage[currentParams].AcceptedTechnologies = currentTechnologiesFilter.filter(cTech => cTech !== tech);
             }
 
             else{

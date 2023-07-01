@@ -3,7 +3,7 @@
     <label :for="id" v-if="label" class="form-label d-block">{{ label }}</label>
     <div class="btn-group d-block">
         <button class="btn btn-light text-start bg-white form-select" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-            {{hint}}
+            {{buttonText}}
         </button>
         <div class="dropdown-menu border">
             <div class="form-check" v-for="item in items" :key="item[valueProperty]">
@@ -64,6 +64,18 @@ export default {
    computed: {
        showHint: function() {
            return !this.errorMessage && this.hint;
+       },
+       buttonText: function(){
+            let selectedOptionsText = ""
+            if(this.localValue){
+                selectedOptionsText = this.localValue.join(", ")
+            }
+
+            if(!selectedOptionsText && this.hint){
+                return this.hint
+            }
+
+            return selectedOptionsText;
        }
    },
    watch: {
