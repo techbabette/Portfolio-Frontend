@@ -12,18 +12,6 @@
 export default {
    name: "SelectInput",
    mounted() {
-       
-       if(!this.items || !this.items.length) {
-           console.warn("Non emptry array is expected for property Items")
-       } else {
-           if(!this.items[0][this.textProperty]) {
-               console.warn(`${this.textProperty} is missing on array objects`)
-           }
-           if(!this.items[0][this.valueProperty]) {
-               console.warn(`${this.valueProperty} is missing on array objects`)
-           }
-
-       }
        this.localValue = this.value
    },
    props: {

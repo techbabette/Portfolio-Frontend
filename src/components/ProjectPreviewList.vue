@@ -2,10 +2,10 @@
     <div>
         <h1>{{ ProjectListLabel }}</h1>
         <div class="row SearchHolder" v-if="ShowSearchElements">
-            <TextInput class="col-12 col-lg-2" v-model="KeywordSearch" label="Search keyword"/>
-            <CheckboxDropdownInput label="Search years" v-model="AcceptedYears" :items="YearOptions" class="col-12 col-lg-2"/>
-            <CheckboxDropdownInput label="Search by technology" v-model="AcceptedTechnologies" :items="TechOptions" class="col-12 col-lg-2"/>
-            <SelectInput class="col-12 col-lg-2" v-model="CurrentSort" :items="SortOptions" textProperty="text" valueProperty="id" label="Sort by"/>
+            <TextInput class="col-12 col-lg-3" v-model="KeywordSearch" label="Search keyword"/>
+            <CheckboxDropdownInput label="Search years" v-model="AcceptedYears" :items="YearOptions" class="col-12 col-lg-3"/>
+            <CheckboxDropdownInput label="Search by technology" v-model="AcceptedTechnologies" :items="TechOptions" class="col-12 col-lg-3"/>
+            <SelectInput class="col-12 col-lg-3" v-model="CurrentSort" :items="SortOptions" textProperty="text" valueProperty="id" label="Sort by"/>
         </div>
         <div v-if="HasProjects" class="ProjectBorder">
         <ProjectPreview v-for="Project,index in Projects" :key = "index" 
