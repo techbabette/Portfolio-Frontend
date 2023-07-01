@@ -3,6 +3,7 @@
         <h1>{{ ProjectListLabel }}</h1>
         <div class="row" v-if="ShowSearchElements">
             <TextInput class="col-12 col-md-2" v-model="KeywordSearch" label="Search keyword"/>
+            <SelectInput class="col-12 col-md-2" v-model="CurrentSort" :items="SortOptions" textProperty="text" valueProperty="id" label="Sort by"/>
         </div>
         <div v-if="HasProjects" class="ProjectBorder">
         <ProjectPreview v-for="Project,index in Projects" :key = "index" 
@@ -17,11 +18,13 @@
 <script>
 import ProjectPreview from "./ProjectPreview.vue"
 import TextInput from "./inputs/Text.vue"
+import SelectInput from "./inputs/Select.vue"
 export default {
     name : "FavoriteProjectsPage",
     components : {
         ProjectPreview,
-        TextInput
+        TextInput,
+        SelectInput
     },
     props : {
         ProjectListLabel : {
@@ -51,6 +54,17 @@ export default {
         ProjectListGetter : function(){
             return this.ShowSearchElements ? "getProjectsForPreviewList" : "getAllProjects"
         },
+        SortOptions : function(){
+            return this.$store.getters.getProjectSortOptions
+        },
+        CurrentSort : {
+            get () { 
+                return this.$store.state.projects.searchParamsForEachPage[this.PageIdentifier].SortBy;
+            },
+            set (value) {
+                this.$store.state.projects.searchParamsForEachPage[this.PageIdentifier].SortBy = value;
+            }
+        },
         KeywordSearch : {
             get () { 
                 return this.$store.state.projects.searchParamsForEachPage[this.PageIdentifier].SearchText;
@@ -67,7 +81,7 @@ export default {
                 SearchText : "",
                 AcceptedYears : [],
                 AcceptedTechnologies : [],
-                SortBy : 3,
+                SortBy : 1,
                 FavoritesOnly : this.FavoritesOnly
             }
             this.$store.state.projects.activePage = this.PageIdentifier
@@ -92,7 +106,7 @@ export default {
                 SearchText : "",
                 AcceptedYears : [],
                 AcceptedTechnologies : [],
-                SortBy : 3,
+                SortBy : 1,
                 FavoritesOnly : this.FavoritesOnly
             }
             this.$store.state.projects.activePage = this.PageIdentifier

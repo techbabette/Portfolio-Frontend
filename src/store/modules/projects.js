@@ -173,6 +173,9 @@ export default {
 
             return getters.getFavoriteProjects(state.projects)
         },
+        getProjectSortOptions(state){
+            return state.sortOptions;
+        },
         getProjectSearchState(state){
             return state.activePage;
         },
