@@ -264,7 +264,7 @@ export default {
             return getters.getSortedProjects(projectsToSort);
         },
         getProjectsForPreviewList(state, getters){
-            return getters.getFavoriteProjects(getters.getSortedFilteredProjects)
+            return getters.getSortedFilteredProjects
         }
     }
 }

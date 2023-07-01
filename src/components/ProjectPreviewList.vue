@@ -75,7 +75,11 @@ export default {
             return
         }
 
-        let searchParamsAlreadyExist = this.PageIdentifier in this.$store.state.projects.searchParamsForEachPage
+        let searchParamsAlreadyExist = false;
+
+        if(this.$store.state.projects.searchParamsForEachPage){
+            searchParamsAlreadyExist = this.PageIdentifier in this.$store.state.projects.searchParamsForEachPage
+        }
 
         if(this.ShowSearchElements && searchParamsAlreadyExist){
             this.$store.state.projects.activePage = this.PageIdentifier
