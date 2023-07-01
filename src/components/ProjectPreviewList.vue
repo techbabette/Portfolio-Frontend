@@ -1,9 +1,11 @@
 <template>
     <div>
         <h1>{{ ProjectListLabel }}</h1>
-        <div class="row" v-if="ShowSearchElements">
-            <TextInput class="col-12 col-md-2" v-model="KeywordSearch" label="Search keyword"/>
-            <SelectInput class="col-12 col-md-2" v-model="CurrentSort" :items="SortOptions" textProperty="text" valueProperty="id" label="Sort by"/>
+        <div class="row SearchHolder" v-if="ShowSearchElements">
+            <TextInput class="col-12 col-lg-2" v-model="KeywordSearch" label="Search keyword"/>
+            <CheckboxDropdownInput label="Search years" v-model="AcceptedYears" :items="YearOptions" class="col-12 col-lg-2"/>
+            <CheckboxDropdownInput label="Search by technology" v-model="AcceptedTechnologies" :items="TechOptions" class="col-12 col-lg-2"/>
+            <SelectInput class="col-12 col-lg-2" v-model="CurrentSort" :items="SortOptions" textProperty="text" valueProperty="id" label="Sort by"/>
         </div>
         <div v-if="HasProjects" class="ProjectBorder">
         <ProjectPreview v-for="Project,index in Projects" :key = "index" 
@@ -19,12 +21,14 @@
 import ProjectPreview from "./ProjectPreview.vue"
 import TextInput from "./inputs/Text.vue"
 import SelectInput from "./inputs/Select.vue"
+import CheckboxDropdownInput from "./inputs/CheckboxDropdown.vue"
 export default {
     name : "FavoriteProjectsPage",
     components : {
         ProjectPreview,
         TextInput,
-        SelectInput
+        SelectInput,
+        CheckboxDropdownInput
     },
     props : {
         ProjectListLabel : {
@@ -56,6 +60,28 @@ export default {
         },
         SortOptions : function(){
             return this.$store.getters.getProjectSortOptions
+        },
+        YearOptions : function(){
+            return this.$store.getters.getAllYears.map(year => {return {text : year, value : year}})
+        },
+        TechOptions : function(){
+            return this.$store.getters.getAllTechnologies.map(tech => {return {text : tech, value : tech}})
+        },
+        AcceptedYears : {
+            get () { 
+                return this.$store.state.projects.searchParamsForEachPage[this.PageIdentifier].AcceptedYears;
+            },
+            set (value) {
+                this.$store.state.projects.searchParamsForEachPage[this.PageIdentifier].AcceptedYears = value;
+            }
+        },
+        AcceptedTechnologies : {
+            get () { 
+                return this.$store.state.projects.searchParamsForEachPage[this.PageIdentifier].AcceptedTechnologies;
+            },
+            set (value) {
+                this.$store.state.projects.searchParamsForEachPage[this.PageIdentifier].AcceptedTechnologies = value;
+            }
         },
         CurrentSort : {
             get () { 
@@ -121,8 +147,18 @@ export default {
     background-color: #292929;
     margin: 15px 0;
 }
+.SearchHolder{
+    padding: 10px 30px;
+    border-radius: 10px;
+    background-color: #292929;
+    margin: 15px 0;
+    color: #FFF;
+}
 @media only screen and (min-width: 992px) {
     .ProjectBorder{
+        margin: 10px 0;
+    }
+    .SearchHolder{
         margin: 10px 0;
     }
 }

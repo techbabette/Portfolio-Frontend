@@ -240,7 +240,15 @@ export default {
             return projects.filter(project => FavoriteProjectIds.includes(project.Id))
         },
         getYearsOfProjects : () => (projects) => {
-            return projects.map(project => {return project["Year of development"]});
+            let years = []
+
+            for(let project of projects){
+                if(!years.includes(project["Year of development"])){
+                    years.push(project["Year of development"])
+                }
+            }
+
+            return years
         },
         getTechnologiesOfProjects : () => (projects) => {
             let technologies = []
