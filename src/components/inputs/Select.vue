@@ -2,7 +2,7 @@
     <div class="mb-3">
        <label v-if="label" :for="id" class="form-label">{{ label }}</label>
        <select v-model="localValue" :id="id" class="form-select">
-           <option v-for="item in items" :value="item[valueProperty]" :key="item[valueProperty]">{{ item[textProperty] }}</option>
+           <option v-for="item in items" :value="item[valueProperty]" :key="item[valueProperty]">{{ makeUpperCase(item[textProperty]) }}</option>
        </select>
        <p v-if="showHint">{{ hint }}</p>
        <p v-if="errorMessage" class="alert alert-danger py-2 my-1">{{ errorMessage }}</p>
@@ -68,6 +68,11 @@ export default {
        showHint: function() {
            return !this.errorMessage && this.hint;
        }
+   },
+   methods: {
+        makeUpperCase(string){
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
    },
    watch: {
        localValue: function() {
