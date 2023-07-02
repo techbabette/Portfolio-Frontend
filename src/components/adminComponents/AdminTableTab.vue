@@ -13,16 +13,15 @@ export default {
             Type : Number,
             require : true
         },
-        CurrentActiveTabIndex : {
-            Type : Number,
-            require : true
-        },
         Title : {
             Type : String,
             require : true
         }
     },
     computed : {
+        CurrentActiveTabIndex : function(){
+            return this.$store.getters.getCurrentlyActiveTab
+        },
         isCurrentlyActive : function(){
             return this.index === this.CurrentActiveTabIndex
         }

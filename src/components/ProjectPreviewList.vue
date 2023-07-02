@@ -69,34 +69,34 @@ export default {
         },
         AcceptedYears : {
             get () { 
-                return this.$store.state.projects.searchParamsForEachPage[this.PageIdentifier].AcceptedYears;
+                return this.$store.getters.getCurrentSearchParamValue("AcceptedYears");
             },
             set (value) {
-                this.$store.state.projects.searchParamsForEachPage[this.PageIdentifier].AcceptedYears = value;
+                this.$store.commit("changeCurrentSearchParams", {prop : "AcceptedYears", value})
             }
         },
         AcceptedTechnologies : {
             get () { 
-                return this.$store.state.projects.searchParamsForEachPage[this.PageIdentifier].AcceptedTechnologies;
+                return this.$store.getters.getCurrentSearchParamValue("AcceptedTechnologies");
             },
             set (value) {
-                this.$store.state.projects.searchParamsForEachPage[this.PageIdentifier].AcceptedTechnologies = value;
+                this.$store.commit("changeCurrentSearchParams", {prop : "AcceptedTechnologies", value})
             }
         },
         CurrentSort : {
             get () { 
-                return this.$store.state.projects.searchParamsForEachPage[this.PageIdentifier].SortBy;
+                return this.$store.getters.getCurrentSearchParamValue("SortBy");
             },
             set (value) {
-                this.$store.state.projects.searchParamsForEachPage[this.PageIdentifier].SortBy = value;
+                this.$store.commit("changeCurrentSearchParams", {prop : "SortBy", value})
             }
         },
         KeywordSearch : {
             get () { 
-                return this.$store.state.projects.searchParamsForEachPage[this.PageIdentifier].SearchText;
+                return this.$store.getters.getCurrentSearchParamValue("SearchText");
             },
             set (value) {
-                this.$store.state.projects.searchParamsForEachPage[this.PageIdentifier].SearchText = value;
+                this.$store.commit("changeCurrentSearchParams", {prop : "SearchText", value})
             }
         }
     },

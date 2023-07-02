@@ -5,7 +5,6 @@
             <div class="d-flex gap-0" id="admin-tabs-holder">
                 <AdminTabButton v-for="AdminTab, index in AdminTabs" :key="index"
                 :Title="AdminTab.Title"
-                :CurrentActiveTabIndex="CurrentActiveTabIndex"
                 :index ="index"/>
             </div>
         </div>

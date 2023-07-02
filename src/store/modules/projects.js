@@ -150,6 +150,13 @@ export default {
         addNewProject(state, newProject){
             state.projects.push(newProject);
         },
+        changeCurrentSearchParams(state, newInformation){
+            let propertyToChange = newInformation.prop;
+
+            let newValue = newInformation.value;
+
+            state.searchParamsForEachPage[state.activePage][propertyToChange] = newValue;
+        },
         changeProject(state, newProjectInformation){
             for(let [index, project] of state.projects.entries()){
                 if(project.Id === newProjectInformation.Id){
@@ -169,8 +176,14 @@ export default {
         getProjectsForAdminPanel(state){
           return state.projects; 
         },
+        getProjectSearchState(state){
+            return state.activePage;
+        },
+        getCurrentSearchParamValue : (state, getters) => (param) => {
+            return state.searchParamsForEachPage[getters.getProjectSearchState][param]
+        },
         getAllProjects(state, getters){
-            let favorites = state.searchParamsForEachPage[getters.getProjectSearchState].FavoritesOnly
+            let favorites = getters.getCurrentSearchParamValue("FavoritesOnly");
             if(!favorites)
             return state.projects;
 
@@ -179,33 +192,28 @@ export default {
         getProjectSortOptions(state){
             return state.sortOptions;
         },
-        getProjectSearchState(state){
-            return state.activePage;
-        },
         getSpecificProject: (state) => (id) => {
             return state.projects.find(project => project.Id === parseInt(id));
         },
         getFilteredProjects(state, getters){
             let projectsToFilter = getters.getAllProjects;
 
-            let stateToUse = getters.getProjectSearchState
-
-            if(state.searchParamsForEachPage[stateToUse].SearchText){
+            if(getters.getCurrentSearchParamValue("SearchText")){
                 projectsToFilter = projectsToFilter.
                 filter(project => 
-                    project.Name.toLowerCase().includes(state.searchParamsForEachPage[stateToUse].SearchText.toLowerCase()) ||
-                    project.Technologies.some(tech => tech === state.searchParamsForEachPage[stateToUse].SearchText)
+                    project.Name.toLowerCase().includes(getters.getCurrentSearchParamValue("SearchText").toLowerCase()) ||
+                    project.Technologies.some(tech => tech === getters.getCurrentSearchParamValue("SearchText"))
                 );
             }
 
-            if(state.searchParamsForEachPage[stateToUse].AcceptedTechnologies.length > 0){
+            if(getters.getCurrentSearchParamValue("AcceptedTechnologies").length > 0){
                 projectsToFilter = projectsToFilter.filter(project => 
-                    project.Technologies.some(tech => state.searchParamsForEachPage[stateToUse].AcceptedTechnologies.includes(tech))
+                    project.Technologies.some(tech => getters.getCurrentSearchParamValue("AcceptedTechnologies").includes(tech))
                 );
             }
 
-            if(state.searchParamsForEachPage[stateToUse].AcceptedYears.length > 0){
-                projectsToFilter = projectsToFilter.filter(project => state.searchParamsForEachPage[stateToUse].AcceptedYears.includes(project['Year of development']));
+            if(getters.getCurrentSearchParamValue("AcceptedYears").length > 0){
+                projectsToFilter = projectsToFilter.filter(project => getters.getCurrentSearchParamValue("AcceptedYears").includes(project['Year of development']));
             }
 
             return projectsToFilter
@@ -213,9 +221,7 @@ export default {
         getSortedProjects : (state, getters) => (projects) => {
             let projectsToSort = projects;
 
-            let stateToUse = getters.getProjectSearchState
-
-            let sortBy = state.searchParamsForEachPage[stateToUse].SortBy;
+            let sortBy = getters.getCurrentSearchParamValue("SortBy");
 
             if(sortBy === 1){
                 return projectsToSort.sort((a, b) => {return b["Year of development"] - a["Year of development"]})
@@ -236,7 +242,7 @@ export default {
             return projectsToSort;
         },
         getFavoriteProjects : (state, getters, rootState, rootGetters) => (projects) => {
-            if(!state.searchParamsForEachPage[getters.getProjectSearchState].FavoritesOnly) return projects;
+            if(!getters.getCurrentSearchParamValue("FavoritesOnly")) return projects;
 
             let FavoriteProjectIds = rootGetters.UserFavorites;
 
