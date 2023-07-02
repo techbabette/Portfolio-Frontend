@@ -279,9 +279,7 @@ export default {
             return getters.getTechnologiesOfProjects(getters.getAllProjects)
         },
         getSortedFilteredProjects(state, getters){
-            let projectsToSort = getters.getFilteredProjects;
-
-            return getters.getSortedProjects(projectsToSort);
+            return getters.getSortedProjects(getters.getFilteredProjects);
         },
         getProjectsForPreviewList(state, getters){
             return getters.getSortedFilteredProjects

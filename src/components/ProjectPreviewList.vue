@@ -101,15 +101,15 @@ export default {
         }
     },
     beforeMount(){
-        if(!this.ShowSearchElements){
-            this.$store.state.projects.searchParamsForEachPage[this.PageIdentifier] = 
-            {
+        let emptySearchParams = {
                 SearchText : "",
                 AcceptedYears : [],
                 AcceptedTechnologies : [],
                 SortBy : 1,
                 FavoritesOnly : this.FavoritesOnly
-            }
+        }
+        if(!this.ShowSearchElements){
+            this.$set(this.$store.state.projects.searchParamsForEachPage, this.PageIdentifier,emptySearchParams)
             this.$store.state.projects.activePage = this.PageIdentifier
 
             return
@@ -123,19 +123,11 @@ export default {
 
         if(this.ShowSearchElements && searchParamsAlreadyExist){
             this.$store.state.projects.activePage = this.PageIdentifier
-
             return
         }
 
-        this.$store.state.projects.searchParamsForEachPage[this.PageIdentifier] = 
-            {
-                SearchText : "",
-                AcceptedYears : [],
-                AcceptedTechnologies : [],
-                SortBy : 1,
-                FavoritesOnly : this.FavoritesOnly
-            }
-            this.$store.state.projects.activePage = this.PageIdentifier
+        this.$set(this.$store.state.projects.searchParamsForEachPage, this.PageIdentifier,emptySearchParams)
+        this.$store.state.projects.activePage = this.PageIdentifier
     }
 }
 </script>
