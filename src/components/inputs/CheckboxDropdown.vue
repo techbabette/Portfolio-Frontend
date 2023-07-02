@@ -14,6 +14,7 @@
         </div>
     </div>
     </div>
+    <p v-if="errorMessage" class="alert alert-danger py-2 my-1">{{ errorMessage }}</p>
 </div>
 
 </template>
