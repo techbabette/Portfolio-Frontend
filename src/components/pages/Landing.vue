@@ -1,9 +1,10 @@
 <template>
 <div class="ViewHeight" id="landingBody">
-    <div data-aos="zoom-in-down" class="text-center row justify-content-center" style="text-align: center;">
-        <div class="col-8 landing-cover">
-            <h1 id="AuthorName" class="my-4">Name Lastname</h1>
-            <p>PHP Developer Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis, iste quos! Quis aperiam perspiciatis quam in fugit atque voluptates delectus?</p>
+    <div data-aos="zoom-in-down" class="text-center landing-cover row justify-content-center" style="text-align: center;">
+        <div class="col-12">
+            <h1 id="AuthorName" class="my-4">Ilija Krstić</h1>
+            <p>PHP Developer currently enrolled at the ICT College of Applied Studies in Belgrade, Serbia.</p>
+            <p>Proficient in database design, PHP, NodeJS, VueJS and basic front-end technologies</p>
            <router-link to="/projects" class="btn PrimaryButton my-4">View my projects</router-link>
         </div>
     </div>
