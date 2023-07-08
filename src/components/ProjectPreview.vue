@@ -14,7 +14,7 @@
             </div>
             <p>{{ ProjectDescription }}</p>
             <p v-if="HasTechnologies">Technologies used:
-                <span class="btn btn-info mx-1 my-1" v-for="Technology, index in ProjectTechnologies" @click="addTechnologyToFilter(Technology)" :key="index">{{ Technology }} </span>
+                <span class="btn btn-info mx-1 my-1" v-for="Technology, index in ProjectTechnologies" @click="emitClickEvent(Technology)" :key="index">{{ Technology }} </span>
             </p>
             <p>Made in {{ ProjectYearOfDevelopment }}</p>
             <p>
@@ -75,18 +75,8 @@ export default {
         flipUserProjectFavorite(){
             this.$store.dispatch("flipUserProjectFavorite", this.ProjectId);
         },
-        addTechnologyToFilter(tech){
-            let currentParams = this.$store.state.projects.activePage
-
-            let currentTechnologiesFilter = this.$store.state.projects.searchParamsForEachPage[currentParams].AcceptedTechnologies;
-
-            if(currentTechnologiesFilter.includes(tech)){
-                this.$store.state.projects.searchParamsForEachPage[currentParams].AcceptedTechnologies = currentTechnologiesFilter.filter(cTech => cTech !== tech);
-            }
-
-            else{
-                this.$store.state.projects.searchParamsForEachPage[currentParams].AcceptedTechnologies.push(tech);
-            }
+        emitClickEvent(Technology){
+            this.$emit("TechnologyClicked", Technology);
         }
     },
     computed : {

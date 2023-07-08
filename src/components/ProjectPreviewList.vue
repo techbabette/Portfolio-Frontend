@@ -12,7 +12,8 @@
         :ProjectId="Project.Id" :ProjectYearOfDevelopment="Project['Year of development']"
         :ProjectName ="Project.Name" :ProjectDescription="Project.Description" :ProjectTechnologies="Project.Technologies"
         :ProjectThumbnailImage = "Project['Preview image link']" :NumberByOrder="index"
-        :ProjectRepositoryLink = "Project['Github link']" :ProjectDemoLink="Project['Hosted link']"/>
+        :ProjectRepositoryLink = "Project['Github link']" :ProjectDemoLink="Project['Hosted link']"
+        @TechnologyClicked="addTechnologyToFilter"/>
         </div>
         <p v-else>No projects found</p>
     </div>
@@ -97,6 +98,25 @@ export default {
             },
             set (value) {
                 this.$store.commit("changeCurrentSearchParams", {prop : "SearchText", value})
+            }
+        }
+    },
+    methods : {
+        addTechnologyToFilter(tech){
+            if(!this.ShowSearchElements){
+                return;
+            }
+
+            let currentParams = this.$store.state.projects.activePage
+
+            let currentTechnologiesFilter = this.$store.getters.getCurrentSearchParamValue("AcceptedTechnologies")
+
+            if(currentTechnologiesFilter.includes(tech)){
+                this.$store.state.projects.searchParamsForEachPage[currentParams].AcceptedTechnologies = currentTechnologiesFilter.filter(cTech => cTech !== tech);
+            }
+
+            else{
+                this.$store.state.projects.searchParamsForEachPage[currentParams].AcceptedTechnologies.push(tech);
             }
         }
     },
