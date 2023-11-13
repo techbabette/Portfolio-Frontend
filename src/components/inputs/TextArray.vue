@@ -51,7 +51,7 @@ export default {
     },
     methods : {
         RemoveFromValue(Text){
-            let regex = new RegExp(`,?${Text}?,`, "g")
+            let regex = new RegExp(`${this.separator}?${Text}?${this.separator}`, "g")
             this.localValue = this.localValue.replaceAll(regex, "");
         }
     },
