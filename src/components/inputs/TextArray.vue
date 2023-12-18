@@ -15,7 +15,7 @@
 export default {
     name : "SeparatedArrayInput",
     mounted(){
-        this.localValue = this.value.join(",");
+        this.localValue = this.value.join(this.separator);
     },
     data(){
         return {
@@ -51,7 +51,7 @@ export default {
     },
     methods : {
         RemoveFromValue(Text){
-            let regex = new RegExp(`${this.separator}?${Text}?${this.separator}`, "g")
+            let regex = new RegExp(`${Text}${this.separator}?`, "g")
             this.localValue = this.localValue.replaceAll(regex, "");
         }
     },
@@ -72,7 +72,7 @@ export default {
             this.$emit("input", NewArrayValue);
         },
         value : function(){
-            this.localValue = this.value.join(",");
+            this.localValue = this.value.join(this.separator);
         }
     }
 }
