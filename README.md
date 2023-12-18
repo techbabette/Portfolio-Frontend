@@ -23,7 +23,7 @@ Clicking a button removes the corresponding value.
 
 Covered by [this test spec](https://github.com/techbabette/Portfolio-Frontend/blob/master/src/components/inputs/TextArray.cy.js).
 
-### [Generic admin table](https://github.com/techbabette/Portfolio-Frontend/blob/master/src/components/inputs/TextArray.vue)
+### [Generic admin table](https://github.com/techbabette/Portfolio-Frontend/blob/master/src/components/adminComponents/AdminGenericTable.vue)
 
 This is a highly reusable component that shows only the data that we want it to show, the way we want to show it.
 
