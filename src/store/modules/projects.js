@@ -29,7 +29,7 @@ export default {
     actions : {
         async getProjectsFromApi({commit}){
             try{
-                let response = await axios.get("https://8udxt8e7t5.execute-api.eu-north-1.amazonaws.com/projects");
+                let response = await axios.get("https://tbabetteprojectsbucket.s3.eu-north-1.amazonaws.com/projects");
                 commit("setProjects", response.data);
             }
             catch(err){
